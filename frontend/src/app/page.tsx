@@ -65,7 +65,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <div className="space-y-6">
-        {/* Filtros */}
+        {/* Filters */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <h1 className="text-3xl font-bold bg-yellow-600 bg-clip-text text-transparent">Dashboard</h1>
           <div className="flex items-center space-x-4">
@@ -76,9 +76,9 @@ export default function Dashboard() {
                 onChange={(e) => setSelectedPeriod(e.target.value)}
                 className="border border-yellow-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
-                <option value="week">Esta semana</option>
-                <option value="month">Este mês</option>
-                <option value="year">Este ano</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
               </select>
             </div>
             <div className="flex items-center space-x-2">
@@ -88,95 +88,83 @@ export default function Dashboard() {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border border-yellow-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
-                <option value="all">Todas as categorias</option>
-                <option value="Alimentação">Alimentação</option>
-                <option value="Transporte">Transporte</option>
-                <option value="Moradia">Moradia</option>
+                <option value="all">All Categories</option>
+                <option value="Alimentação">Food</option>
+                <option value="Transporte">Transport</option>
+                <option value="Moradia">Housing</option>
               </select>
             </div>
           </div>
         </div>
 
-        {/* Cards de estatísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-gray-600">Total Balance</p>
-                <p className="text-2xl font-bold text-yellow-600">
-                  R$ {currentMonthIncome.toLocaleString('pt-BR')}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <span className="text-yellow-600 font-medium">+12.5%</span>
-              <span className="text-gray-500 ml-2">vs mês anterior</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-gray-600">Gastos Mensais</p>
-                <p className="text-2xl font-bold text-yellow-600">
-                  R$ {currentMonthExpenses.toLocaleString('pt-BR')}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
-                <TrendingDown className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <span className="text-yellow-600 font-medium">+5.2%</span>
-              <span className="text-gray-500 ml-2">vs mês anterior</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-gray-600">Saldo Atual</p>
-                <p className="text-2xl font-bold text-yellow-600">
-                  R$ {stats.totalBalance.toLocaleString('pt-BR')}
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <span className="text-yellow-600 font-medium">+8.1%</span>
-              <span className="text-gray-500 ml-2">vs mês anterior</span>
-            </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-lg border-1 hover:shadow-xl transition-all duration-300">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold text-gray-600">Taxa de Economia</p>
-                <p className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
-                  {savingsRate}%
-                </p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
-                <PiggyBank className="w-6 h-6 text-white" />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center text-sm">
-              <span className="text-yellow-600 font-medium">+2.3%</span>
-              <span className="text-gray-500 ml-2">vs mês anterior</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Gráficos */}
+        {/* Main Layout - Left and Right Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Gráfico de Pizza - Gastos por Categoria */}
-          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-            <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Gastos por Categoria</h3>
+          {/* Left Column - Total Balance and Recent Transactions */}
+          <div className="space-y-6">
+            {/* Total Balance Card */}
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold text-gray-600">Total Balance</p>
+                  <p className="text-2xl font-bold text-yellow-600">
+                    $ {currentMonthIncome.toLocaleString('en-US')}
+                  </p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center text-sm">
+                <span className="text-yellow-600 font-medium">+12.5%</span>
+                <span className="text-gray-500 ml-2">vs previous month</span>
+              </div>
+            </div>
+
+            {/* Recent Transactions */}
+            <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+              <div className="p-6 border-b border-yellow-500">
+                <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">Recent Transactions</h3>
+              </div>
+              <div className="divide-y divide-gray-100">
+                {recentTransactions.map((transaction) => (
+                  <div key={transaction.id} className="p-6 flex items-center justify-between hover:bg-gray-50">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                        transaction.type === 'income' ? 'bg-green-100' : ''
+                      }`}>
+                        {transaction.type === 'income' ? (
+                          <TrendingUp className="w-5 h-5 text-green-600" />
+                        ) : (
+                          <CreditCard className="w-5 h-5 text-yellow-600" />
+                        )}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">{transaction.description}</p>
+                        <p className="text-sm text-gray-500">{transaction.category} • {transaction.account}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className={`font-semibold ${
+                        transaction.type === 'income' ? 'text-yellow-600' : 'text-yellow-600'
+                      }`}>
+                        {transaction.type === 'income' ? '+' : ''}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {new Date(transaction.date).toLocaleDateString('en-US')}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column - Charts */}
+          <div className="space-y-6">
+
+            {/* Pie Chart - Expenses by Category */}
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Expenses by Category</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -203,10 +191,10 @@ export default function Dashboard() {
                   </Pie>
                   <Tooltip 
                     formatter={(value, name) => [
-                      `R$ ${Number(value).toLocaleString('pt-BR')}`, 
+                      `$ ${Number(value).toLocaleString('en-US')}`, 
                       name
                     ]}
-                    labelFormatter={(label) => `Categoria: ${label}`}
+                    labelFormatter={(label) => `Category: ${label}`}
                     contentStyle={{
                       backgroundColor: 'white',
                       border: '1px solid #e5e7eb',
@@ -219,87 +207,85 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Gráfico de Linha - Evolução Mensal */}
-          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-            <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Evolução Mensal</h3>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart 
-                  data={monthlyData}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
-                  <XAxis 
-                    dataKey="month" 
-                    tick={{ fontSize: 12 }}
-                    axisLine={{ stroke: '#e5e7eb' }}
-                  />
-                  <YAxis 
-                    tick={{ fontSize: 12 }}
-                    axisLine={{ stroke: '#e5e7eb' }}
-                    tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
-                  />
-                  <Tooltip 
-                    formatter={(value, name) => [
-                      `R$ ${Number(value).toLocaleString('pt-BR')}`, 
-                      name === 'income' ? 'Receitas' : name === 'expenses' ? 'Gastos' : 'Saldo'
-                    ]}
-                    labelFormatter={(label) => `Mês: ${label}`}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                  <Legend 
-                    formatter={(value) => 
-                      value === 'income' ? 'Receitas' : 
-                      value === 'expenses' ? 'Gastos' : 'Saldo'
-                    }
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="income" 
-                    stroke="#10B981" 
-                    strokeWidth={3}
-                    name="Receitas"
-                    dot={{ fill: '#10B981', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#10B981', strokeWidth: 2, fill: 'white' }}
-                    animationDuration={1000}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="expenses" 
-                    stroke="#EF4444" 
-                    strokeWidth={3}
-                    name="Gastos"
-                    dot={{ fill: '#EF4444', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#EF4444', strokeWidth: 2, fill: 'white' }}
-                    animationDuration={1000}
-                    animationDelay={200}
-                  />
-                  <Line 
-                    type="monotone" 
-                    dataKey="balance" 
-                    stroke="#F59E0B" 
-                    strokeWidth={3}
-                    name="Saldo"
-                    dot={{ fill: '#F59E0B', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#F59E0B', strokeWidth: 2, fill: 'white' }}
-                    animationDuration={1000}
-                    animationDelay={400}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+            {/* Bar Chart - Monthly Evolution */}
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+              <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Monthly Evolution</h3>
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart 
+                    data={monthlyData}
+                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f3f4f6" />
+                    <XAxis 
+                      dataKey="month" 
+                      tick={{ fontSize: 12 }}
+                      axisLine={{ stroke: '#e5e7eb' }}
+                    />
+                    <YAxis 
+                      tick={{ fontSize: 12 }}
+                      axisLine={{ stroke: '#e5e7eb' }}
+                      tickFormatter={(value) => `$ ${(value / 1000).toFixed(0)}k`}
+                    />
+                    <Tooltip 
+                      formatter={(value, name) => {
+                        const displayName = name === 'income' ? 'Income' : 
+                                          name === 'expenses' ? 'Expenses' : 
+                                          name === 'balance' ? 'Balance' : name;
+                        return [`$ ${Number(value).toLocaleString('en-US')}`, displayName];
+                      }}
+                      labelFormatter={(label) => `Month: ${label}`}
+                      contentStyle={{
+                        backgroundColor: 'white',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                      }}
+                    />
+                    <Legend 
+                      formatter={(value) => {
+                        if (value === 'income') return 'Income';
+                        if (value === 'expenses') return 'Expenses';
+                        if (value === 'balance') return 'Balance';
+                        return value;
+                      }}
+                    />
+                    <Bar 
+                      dataKey="income" 
+                      fill="#E6D1AD" 
+                      name="Income"
+                      radius={[4, 4, 0, 0]}
+                      animationDuration={1000}
+                    />
+                    {/* <Bar 
+                      dataKey="expenses" 
+                      fill="#EF4444" 
+                      name="Expenses"
+                      radius={[4, 4, 0, 0]}
+                      animationDuration={1000}
+                      animationDelay={200}
+                    /> */}
+                    {/* <Bar 
+                      dataKey="balance" 
+                      fill="#F59E0B" 
+                      name="Balance"
+                      radius={[4, 4, 0, 0]}
+                      animationDuration={1000}
+                      animationDelay={400}
+                    /> */}
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Transações Recentes */}
+
+
+        {/* Recent Transactions */}
         <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 hover:shadow-xl">
           <div className="p-6 border-b border-yellow-500">
-            <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">Transações Recentes</h3>
+            <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">Recent Transactions</h3>
           </div>
           <div className="divide-y divide-gray-100">
             {recentTransactions.map((transaction) => (
@@ -323,16 +309,17 @@ export default function Dashboard() {
                   <p className={`font-semibold ${
                     transaction.type === 'income' ? 'text-yellow-600' : 'text-yellow-600'
                   }`}>
-                    {transaction.type === 'income' ? '+' : ''}R$ {Math.abs(transaction.amount).toLocaleString('pt-BR')}
+                    {transaction.type === 'income' ? '+' : ''}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
                   </p>
                   <p className="text-sm text-gray-500">
-                    {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                    {new Date(transaction.date).toLocaleDateString('en-US')}
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
 
 
       </div>
