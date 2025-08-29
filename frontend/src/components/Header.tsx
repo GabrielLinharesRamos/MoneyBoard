@@ -26,7 +26,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
   ];
 
   return (
-    <header className="shadow-sm border-b border-gray-200 h-16 flex items-center py-10 justify-between sm:px-6">
+    <header className="bg-azul_marinho shadow-sm border-b border-gray-200 h-16 flex items-center py-10 justify-between sm:px-6">
       {/* Left section */}
       <div className="flex items-center space-x-4">
         <button
