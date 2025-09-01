@@ -61,14 +61,14 @@ export default function Dashboard() {
     .slice(0, 5);
 
   const COLORS = [
-    "#fff5e9", // quase branco com tom quente
-    "#f6e1c8", // bege bem claro
-    "#eed0aa", // bege dourado
-    "#e2bc8c", // caramelo claro
-    "#d7a96f", // dourado médio-claro
-    "#c9965d", // marrom suave
-    "#b8854d", // cor base
-    "#a47442", // só um pouco mais escuro
+    "#fff5e9",
+    "#f6e1c8",
+    "#eed0aa",
+    "#e2bc8c",
+    "#d7a96f",
+    "#c9965d",
+    "#b8854d",
+    "#a47442",
   ];
 
   return (
@@ -148,7 +148,7 @@ export default function Dashboard() {
                         )}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{transaction.description}</p>
+                        <p className="font-medium font-semibold text-gray-600">{transaction.description}</p>
                         <p className="text-sm text-gray-500">{transaction.category} • {transaction.account}</p>
                       </div>
                     </div>
@@ -199,11 +199,11 @@ export default function Dashboard() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value, name) => [
+                    formatter={(value, name, entry) => [
                       `$ ${Number(value).toLocaleString('en-US')}`, 
-                      name
+                      entry.payload.category
                     ]}
-                    labelFormatter={(label) => `Category: ${label}`}
+                    labelFormatter={() => ''}
                     contentStyle={{
                       backgroundColor: 'white',
                       border: '1px solid #e5e7eb',
@@ -244,6 +244,7 @@ export default function Dashboard() {
                         return [`$ ${Number(value).toLocaleString('en-US')}`, displayName];
                       }}
                       labelFormatter={(label) => `Month: ${label}`}
+                      wrapperClassName="text-gray-500 bg-white"
                       contentStyle={{
                         backgroundColor: 'white',
                         border: '1px solid #e5e7eb',
@@ -251,14 +252,7 @@ export default function Dashboard() {
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                       }}
                     />
-                    <Legend 
-                      formatter={(value) => {
-                        if (value === 'income') return 'Income';
-                        if (value === 'expenses') return 'Expenses';
-                        if (value === 'balance') return 'Balance';
-                        return value;
-                      }}
-                    />
+
                     <Bar 
                       dataKey="income" 
                       fill="#E6D1AD" 
@@ -266,22 +260,6 @@ export default function Dashboard() {
                       radius={[4, 4, 0, 0]}
                       animationDuration={1000}
                     />
-                    {/* <Bar 
-                      dataKey="expenses" 
-                      fill="#EF4444" 
-                      name="Expenses"
-                      radius={[4, 4, 0, 0]}
-                      animationDuration={1000}
-                      animationDelay={200}
-                    /> */}
-                    {/* <Bar 
-                      dataKey="balance" 
-                      fill="#F59E0B" 
-                      name="Balance"
-                      radius={[4, 4, 0, 0]}
-                      animationDuration={1000}
-                      animationDelay={400}
-                    /> */}
                   </BarChart>
                 </ResponsiveContainer>
               </div>

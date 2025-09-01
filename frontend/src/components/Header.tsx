@@ -20,9 +20,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
-    { id: 1, message: 'Novo gasto de R$ 120,00 em Alimentação', time: '2 min atrás', unread: true },
-    { id: 2, message: 'Meta mensal de gastos atingida em 80%', time: '1 hora atrás', unread: true },
-    { id: 3, message: 'Fatura do cartão disponível', time: '3 horas atrás', unread: false },
+    { id: 1, message: 'Novo gasto de R$ 120,00 em Alimentação', time: '2 min atrás' },
+    { id: 2, message: 'Meta mensal de gastos atingida em 80%', time: '1 hora atrás' },
+    { id: 3, message: 'Fatura do cartão disponível', time: '3 horas atrás' },
   ];
 
   return (
@@ -36,7 +36,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
           <Menu className="w-5 h-5 text-gray-600" />
         </button>
         
-        <h1 className="text-2xl font-bold bg-yellow-600 to-yellow-800 bg-clip-text text-transparent">MoneyBoard</h1>
+        <h1 className="text-2xl font-bold text-brown-burned bg-clip-text text-transparent">MoneyBoard</h1>
       </div>
 
       {/* Center section - Search */}
@@ -53,9 +53,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             className="p-2 hover:bg-gradient-to-r relative"
           >
             <Bell className="w-5 h-5 text-yellow-700 hover:text-yellow-800" />
-            {notifications.some(n => n.unread) && (
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-500 to-red-600 rounded-full shadow-lg"></span>
-            )}
+
           </button>
 
           {/* Notifications dropdown */}
@@ -68,9 +66,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer ${
-                      notification.unread ? 'bg-yellow-50' : ''
-                    }`}
+                    className={`p-4 border-b border-gray-50 hover:bg-gray-50 cursor-pointer`}
                   >
                     <p className="text-sm text-gray-900 mb-1">{notification.message}</p>
                     <p className="text-xs text-gray-500">{notification.time}</p>
@@ -78,7 +74,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
                 ))}
               </div>
               <div className="p-3 border-t border-gray-100">
-                <button className="text-sm text-yellow-600 hover:text-yellow-700 font-medium">
+                <button className="text-sm text-brown-burned font-medium">
                   Ver todas as notificações
                 </button>
               </div>
@@ -90,12 +86,12 @@ export default function Header({ onMenuClick }: HeaderProps) {
         <div className="relative">
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gradient-to-r hover:from-yellow-100 hover:to-yellow-200 shadow-sm hover:shadow-md"
+            className="flex items-center space-x-2 p-2 rounded-lg shadow-sm hover:shadow-md"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-full flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 bg-brown-burned-grad rounded-full flex items-center justify-center shadow-lg">
               <User className="w-4 h-4 text-white" />
             </div>
-            <ChevronDown className="w-4 h-4 text-yellow-600" />
+            <ChevronDown className="w-4 h-4 text-yellow-700" />
           </button>
 
           {/* Profile dropdown */}
