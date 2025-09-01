@@ -60,21 +60,30 @@ export default function Dashboard() {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 5);
 
-  const COLORS = ['#FFD700', '#FFA500', '#FF8C00', '#FF6347', '#DAA520', '#B8860B', '#CD853F', '#D2691E', '#DDD'];
+  const COLORS = [
+    "#fff5e9", // quase branco com tom quente
+    "#f6e1c8", // bege bem claro
+    "#eed0aa", // bege dourado
+    "#e2bc8c", // caramelo claro
+    "#d7a96f", // dourado médio-claro
+    "#c9965d", // marrom suave
+    "#b8854d", // cor base
+    "#a47442", // só um pouco mais escuro
+  ];
 
   return (
     <Layout>
       <div className="space-y-6">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-          <h1 className="text-3xl font-bold bg-yellow-600 bg-clip-text text-transparent">Dashboard</h1>
+          <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Dashboard</h1>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <Calendar className="w-5 h-5 text-yellow-600" />
+              <Calendar className="w-5 h-5 text-brown-burned" />
               <select 
                 value={selectedPeriod} 
                 onChange={(e) => setSelectedPeriod(e.target.value)}
-                className="border border-yellow-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
+                className="border-brown-burned rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
                 <option value="week">This Week</option>
                 <option value="month">This Month</option>
@@ -82,11 +91,11 @@ export default function Dashboard() {
               </select>
             </div>
             <div className="flex items-center space-x-2">
-              <Filter className="w-5 h-5 text-yellow-600"/>
+              <Filter className="w-5 h-5 text-brown-burned"/>
               <select 
                 value={selectedCategory} 
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="border border-yellow-500 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
+                className="border-brown-burned rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
                 <option value="all">All Categories</option>
                 <option value="Alimentação">Food</option>
@@ -106,24 +115,24 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-semibold text-gray-600">Total Balance</p>
-                  <p className="text-2xl font-bold text-yellow-600">
+                  <p className="text-2xl font-bold text-brown-burned">
                     $ {currentMonthIncome.toLocaleString('en-US')}
                   </p>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
+                <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
               </div>
               <div className="mt-4 flex items-center text-sm">
-                <span className="text-yellow-600 font-medium">+12.5%</span>
+                <span className="text-brown-burned font-medium">+12.5%</span>
                 <span className="text-gray-500 ml-2">vs previous month</span>
               </div>
             </div>
 
             {/* Recent Transactions */}
             <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <div className="p-6 border-b border-yellow-500">
-                <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">Recent Transactions</h3>
+              <div className="p-6 border-bottom-brown-burned">
+                <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent">Recent Transactions</h3>
               </div>
               <div className="divide-y divide-gray-100">
                 {recentTransactions.map((transaction) => (
@@ -135,7 +144,7 @@ export default function Dashboard() {
                         {transaction.type === 'income' ? (
                           <TrendingUp className="w-5 h-5 text-green-600" />
                         ) : (
-                          <CreditCard className="w-5 h-5 text-yellow-600" />
+                          <CreditCard className="w-5 h-5 text-brown-burned" />
                         )}
                       </div>
                       <div>
@@ -145,7 +154,7 @@ export default function Dashboard() {
                     </div>
                     <div className="text-right">
                       <p className={`font-semibold ${
-                        transaction.type === 'income' ? 'text-yellow-600' : 'text-yellow-600'
+                        transaction.type === 'income' ? 'text-brown-burned' : 'text-brown-burned'
                       }`}>
                         {transaction.type === 'income' ? '+' : ''}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
                       </p>
@@ -164,7 +173,7 @@ export default function Dashboard() {
 
             {/* Pie Chart - Expenses by Category */}
             <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Expenses by Category</h3>
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">Expenses by Category</h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -209,7 +218,7 @@ export default function Dashboard() {
 
             {/* Bar Chart - Monthly Evolution */}
             <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Monthly Evolution</h3>
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">Monthly Evolution</h3>
               <div className="h-80">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart 
@@ -284,8 +293,8 @@ export default function Dashboard() {
 
         {/* Recent Transactions */}
         <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 hover:shadow-xl">
-          <div className="p-6 border-b border-yellow-500">
-            <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">Recent Transactions</h3>
+          <div className="p-6 border-bottom-brown-burned">
+            <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent">Recent Transactions</h3>
           </div>
           <div className="divide-y divide-gray-100">
             {recentTransactions.map((transaction) => (
@@ -297,7 +306,7 @@ export default function Dashboard() {
                     {transaction.type === 'income' ? (
                       <TrendingUp className="w-5 h-5 text-green-600" />
                     ) : (
-                      <CreditCard className="w-5 h-5 text-yellow-600" />
+                      <CreditCard className="w-5 h-5 text-brown-burned" />
                     )}
                   </div>
                   <div>
@@ -307,9 +316,9 @@ export default function Dashboard() {
                 </div>
                 <div className="text-right">
                   <p className={`font-semibold ${
-                    transaction.type === 'income' ? 'text-yellow-600' : 'text-yellow-600'
+                    transaction.type === 'income' ? 'text-brown-burned' : 'text-brown-burned'
                   }`}>
-                    {transaction.type === 'income' ? '+' : ''}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
+                    {transaction.type === 'income' ? '+ ' : '- '}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
                   </p>
                   <p className="text-sm text-gray-500">
                     {new Date(transaction.date).toLocaleDateString('en-US')}

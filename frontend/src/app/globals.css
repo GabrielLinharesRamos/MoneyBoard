@@ -25,10 +25,23 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.bg-yellow-600 {
-  background-color: #b3854d !important;
+.bg-brown-burned {
+  background-color: #b3854d;
 }
 
-.text-yellow-600 {
-  color: #b3854d !important;
+.text-brown-burned {
+  color: #b3854d;
+}
+
+.bg-brown-burned-grad {
+  background: linear-gradient(135deg, #f1c27a 0%, #b3854d 60%, #8e642f 100%);
+}
+
+/* Dica de borda combinando */
+.border-bottom-brown-burned {
+  border-bottom: 1px solid #b3854d;
+}
+
+.border-brown-burned {
+  border: 1px solid #b3854d;
 }

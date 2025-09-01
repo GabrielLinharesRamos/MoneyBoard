@@ -100,11 +100,10 @@ export const categoryExpenses: CategoryExpense[] = [
   { category: 'Moradia', amount: 3600, percentage: 35, color: '#FF8C00' },
   { category: 'Alimentação', amount: 1960, percentage: 19, color: '#FFD700' },
   { category: 'Transporte', amount: 1040, percentage: 10, color: '#FFA500' },
-  { category: 'Compras', amount: 1100, percentage: 11, color: '#CD853F' },
   { category: 'Investimentos', amount: 1000, percentage: 10, color: '#D2691E' },
   { category: 'Saúde', amount: 565, percentage: 5, color: '#FF6347' },
   { category: 'Educação', amount: 319, percentage: 3, color: '#DAA520' },
-  { category: 'Entretenimento', amount: 449.90, percentage: 4, color: '#B8860B' },
+  { category: 'Entretenimento', amount: 1549.90, percentage: 15, color: '#B8860B' },
   { category: 'Outros', amount: 290, percentage: 3, color: '#DDD' },
 ];
 
