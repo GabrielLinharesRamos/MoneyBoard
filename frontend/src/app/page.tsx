@@ -109,32 +109,32 @@ export default function Dashboard() {
         {/* Main Layout - Left and Right Columns */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column - Total Balance and Recent Transactions */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6 h-[792px]">
             {/* Total Balance Card */}
-            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center justify-between">
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[180px] flex-shrink-0">
+              <div className="flex items-center justify-between h-full">
                 <div>
-                  <p className="text-sm font-semibold text-gray-600">Total Balance</p>
-                  <p className="text-2xl font-bold text-brown-burned">
+                  <p className="text-base font-semibold text-gray-600 mb-1">Total Balance</p>
+                  <p className="text-3xl font-bold text-brown-burned">
                     $ {currentMonthIncome.toLocaleString('en-US')}
                   </p>
+                  <div className="mt-2 flex items-center text-sm">
+                    <span className="text-brown-burned font-medium">+12.5%</span>
+                    <span className="text-gray-500 ml-2">vs previous month</span>
+                  </div>
                 </div>
                 <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
                   <TrendingUp className="w-6 h-6 text-white" />
                 </div>
               </div>
-              <div className="mt-4 flex items-center text-sm">
-                <span className="text-brown-burned font-medium">+12.5%</span>
-                <span className="text-gray-500 ml-2">vs previous month</span>
-              </div>
             </div>
 
             {/* Recent Transactions */}
-            <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <div className="p-6 border-bottom-brown-burned">
+            <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[588px] flex flex-col">
+              <div className="p-6 border-bottom-brown-burned flex-shrink-0">
                 <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent">Recent Transactions</h3>
               </div>
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-gray-100 flex-1 overflow-y-auto">
                 {recentTransactions.map((transaction) => (
                   <div key={transaction.id} className="p-6 flex items-center justify-between hover:bg-gray-50">
                     <div className="flex items-center space-x-4">
@@ -169,57 +169,57 @@ export default function Dashboard() {
           </div>
 
           {/* Right Column - Charts */}
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6 h-[792px]">
 
             {/* Pie Chart - Expenses by Category */}
-            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">Expenses by Category</h3>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={categoryExpenses}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ category, percentage }) => `${category} ${percentage}%`}
-                    outerRadius={isMobile ? 60 : 80}
-                    fill="#8884d8"
-                    dataKey="amount"
-                    animationBegin={0}
-                    animationDuration={800}
-                  >
-                    {categoryExpenses.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={COLORS[index % COLORS.length]}
-                        stroke={COLORS[index % COLORS.length]}
-                        strokeWidth={2}
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    formatter={(value, name, entry) => [
-                      `$ ${Number(value).toLocaleString('en-US')}`, 
-                      entry.payload.category
-                    ]}
-                    labelFormatter={() => ''}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
-                      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[384px] flex flex-col">
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4 flex-shrink-0">Expenses by Category</h3>
+              <div className="flex-1">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={categoryExpenses}
+                      cx="50%"
+                      cy="50%"
+                      labelLine={false}
+                      label={({ category, percentage }) => `${category} ${percentage}%`}
+                      outerRadius={isMobile ? 60 : 80}
+                      fill="#8884d8"
+                      dataKey="amount"
+                      animationBegin={0}
+                      animationDuration={800}
+                    >
+                      {categoryExpenses.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={COLORS[index % COLORS.length]}
+                          stroke={COLORS[index % COLORS.length]}
+                          strokeWidth={2}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      formatter={(value, name, entry) => [
+                        `$ ${Number(value).toLocaleString('en-US')}`, 
+                        entry.payload.category
+                      ]}
+                      labelFormatter={() => ''}
+                      contentStyle={{
+                        backgroundColor: 'white',
+                        border: '1px solid #e5e7eb',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                      }}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
             </div>
-          </div>
 
             {/* Bar Chart - Monthly Evolution */}
-            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">Monthly Evolution</h3>
-              <div className="h-80">
+            <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[384px] flex flex-col">
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4 flex-shrink-0">Monthly Evolution</h3>
+              <div className="flex-1">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart 
                     data={monthlyData}
@@ -266,49 +266,6 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
-
-
-        {/* Recent Transactions */}
-        <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 hover:shadow-xl">
-          <div className="p-6 border-bottom-brown-burned">
-            <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent">Recent Transactions</h3>
-          </div>
-          <div className="divide-y divide-gray-100">
-            {recentTransactions.map((transaction) => (
-              <div key={transaction.id} className="p-6 flex items-center justify-between hover:bg-gray-50">
-                <div className="flex items-center space-x-4">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                    transaction.type === 'income' ? 'bg-green-100' : ''
-                  }`}>
-                    {transaction.type === 'income' ? (
-                      <TrendingUp className="w-5 h-5 text-green-600" />
-                    ) : (
-                      <CreditCard className="w-5 h-5 text-brown-burned" />
-                    )}
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-900">{transaction.description}</p>
-                    <p className="text-sm text-gray-500">{transaction.category} • {transaction.account}</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className={`font-semibold ${
-                    transaction.type === 'income' ? 'text-brown-burned' : 'text-brown-burned'
-                  }`}>
-                    {transaction.type === 'income' ? '+ ' : '- '}$ {Math.abs(transaction.amount).toLocaleString('en-US')}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {new Date(transaction.date).toLocaleDateString('en-US')}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-
-
       </div>
     </Layout>
   );
