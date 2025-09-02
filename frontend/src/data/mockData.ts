@@ -160,3 +160,145 @@ export const getExpensesByCategory = (transactions: Transaction[]) => {
     };
   });
 };
+
+// Interfaces para Investimentos
+export interface Stock {
+  id: string;
+  ticker: string;
+  companyName: string;
+  quantity: number;
+  purchasePrice: number;
+  currentPrice: number;
+  purchaseDate: string;
+  sector: string;
+}
+
+export interface Dividend {
+  id: string;
+  stockId: string;
+  ticker: string;
+  amount: number;
+  paymentDate: string;
+  exDividendDate: string;
+  type: 'dividend' | 'jscp' | 'bonus';
+}
+
+export interface MonthlyDividend {
+  month: string;
+  amount: number;
+  count: number;
+}
+
+export interface InvestmentSummary {
+  totalInvested: number;
+  currentValue: number;
+  totalReturn: number;
+  totalReturnPercentage: number;
+  totalDividends: number;
+  monthlyDividendYield: number;
+}
+
+// Dados mockados de ações
+export const stocks: Stock[] = [
+  {
+    id: '1',
+    ticker: 'PETR4',
+    companyName: 'Petrobras PN',
+    quantity: 100,
+    purchasePrice: 28.50,
+    currentPrice: 32.15,
+    purchaseDate: '2023-06-15',
+    sector: 'Petróleo e Gás'
+  },
+  {
+    id: '2',
+    ticker: 'VALE3',
+    companyName: 'Vale ON',
+    quantity: 50,
+    purchasePrice: 65.20,
+    currentPrice: 71.80,
+    purchaseDate: '2023-08-10',
+    sector: 'Mineração'
+  },
+  {
+    id: '3',
+    ticker: 'ITUB4',
+    companyName: 'Itaú Unibanco PN',
+    quantity: 200,
+    purchasePrice: 25.30,
+    currentPrice: 27.90,
+    purchaseDate: '2023-05-20',
+    sector: 'Bancos'
+  },
+  {
+    id: '4',
+    ticker: 'BBDC4',
+    companyName: 'Bradesco PN',
+    quantity: 150,
+    purchasePrice: 18.75,
+    currentPrice: 20.45,
+    purchaseDate: '2023-07-05',
+    sector: 'Bancos'
+  },
+  {
+    id: '5',
+    ticker: 'WEGE3',
+    companyName: 'WEG ON',
+    quantity: 80,
+    purchasePrice: 42.10,
+    currentPrice: 45.30,
+    purchaseDate: '2023-09-12',
+    sector: 'Máquinas e Equipamentos'
+  }
+];
+
+// Dados mockados de dividendos
+export const dividends: Dividend[] = [
+  { id: '1', stockId: '1', ticker: 'PETR4', amount: 1.25, paymentDate: '2024-01-15', exDividendDate: '2024-01-10', type: 'dividend' },
+  { id: '2', stockId: '3', ticker: 'ITUB4', amount: 0.85, paymentDate: '2024-01-20', exDividendDate: '2024-01-15', type: 'dividend' },
+  { id: '3', stockId: '4', ticker: 'BBDC4', amount: 0.65, paymentDate: '2024-01-25', exDividendDate: '2024-01-20', type: 'dividend' },
+  { id: '4', stockId: '2', ticker: 'VALE3', amount: 2.10, paymentDate: '2024-02-10', exDividendDate: '2024-02-05', type: 'dividend' },
+  { id: '5', stockId: '1', ticker: 'PETR4', amount: 1.30, paymentDate: '2024-02-15', exDividendDate: '2024-02-10', type: 'dividend' },
+  { id: '6', stockId: '5', ticker: 'WEGE3', amount: 0.45, paymentDate: '2024-02-20', exDividendDate: '2024-02-15', type: 'dividend' },
+  { id: '7', stockId: '3', ticker: 'ITUB4', amount: 0.90, paymentDate: '2024-03-15', exDividendDate: '2024-03-10', type: 'dividend' },
+  { id: '8', stockId: '4', ticker: 'BBDC4', amount: 0.70, paymentDate: '2024-03-20', exDividendDate: '2024-03-15', type: 'dividend' },
+  { id: '9', stockId: '1', ticker: 'PETR4', amount: 1.40, paymentDate: '2024-03-25', exDividendDate: '2024-03-20', type: 'dividend' },
+  { id: '10', stockId: '2', ticker: 'VALE3', amount: 2.25, paymentDate: '2024-04-10', exDividendDate: '2024-04-05', type: 'dividend' }
+];
+
+// Dados de dividendos mensais
+export const monthlyDividends: MonthlyDividend[] = [
+  { month: 'Jan', amount: 270, count: 3 },
+  { month: 'Fev', amount: 341, count: 3 },
+  { month: 'Mar', amount: 300, count: 3 },
+  { month: 'Abr', amount: 112.5, count: 1 },
+  { month: 'Mai', amount: 0, count: 0 },
+  { month: 'Jun', amount: 0, count: 0 }
+];
+
+// Função para calcular resumo dos investimentos
+export const getInvestmentSummary = (): InvestmentSummary => {
+  const totalInvested = stocks.reduce((sum, stock) => sum + (stock.quantity * stock.purchasePrice), 0);
+  const currentValue = stocks.reduce((sum, stock) => sum + (stock.quantity * stock.currentPrice), 0);
+  const totalReturn = currentValue - totalInvested;
+  const totalReturnPercentage = (totalReturn / totalInvested) * 100;
+  const totalDividends = dividends.reduce((sum, dividend) => {
+    const stock = stocks.find(s => s.id === dividend.stockId);
+    return sum + (dividend.amount * (stock?.quantity || 0));
+  }, 0);
+  const monthlyDividendYield = (totalDividends / 12) / currentValue * 100;
+
+  return {
+    totalInvested,
+    currentValue,
+    totalReturn,
+    totalReturnPercentage,
+    totalDividends,
+    monthlyDividendYield
+  };
+};
+
+// Função para obter dividendos por ação
+export const getDividendsByStock = (stockId: string) => {
+  return dividends.filter(dividend => dividend.stockId === stockId);
+};

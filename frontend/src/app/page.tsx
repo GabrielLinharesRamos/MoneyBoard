@@ -76,7 +76,10 @@ export default function Dashboard() {
       <div className="space-y-6">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-          <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Dashboard</h1>
+          <div>
+            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Dashboard</h1>
+            <p className="text-gray-600 mt-1">Track your financial life with MoneyBoard</p>
+          </div>
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Calendar className="w-5 h-5 text-brown-burned" />
@@ -174,45 +177,65 @@ export default function Dashboard() {
             {/* Pie Chart - Expenses by Category */}
             <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[384px] flex flex-col">
               <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4 flex-shrink-0">Expenses by Category</h3>
-              <div className="flex-1">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={categoryExpenses}
-                      cx="50%"
-                      cy="50%"
-                      labelLine={false}
-                      label={({ category, percentage }) => `${category} ${percentage}%`}
-                      outerRadius={isMobile ? 60 : 80}
-                      fill="#8884d8"
-                      dataKey="amount"
-                      animationBegin={0}
-                      animationDuration={800}
-                    >
-                      {categoryExpenses.map((entry, index) => (
-                        <Cell 
-                          key={`cell-${index}`} 
-                          fill={COLORS[index % COLORS.length]}
-                          stroke={COLORS[index % COLORS.length]}
-                          strokeWidth={2}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip 
-                      formatter={(value, name, entry) => [
-                        `$ ${Number(value).toLocaleString('en-US')}`, 
-                        entry.payload.category
-                      ]}
-                      labelFormatter={() => ''}
-                      contentStyle={{
-                        backgroundColor: 'white',
-                        border: '1px solid #e5e7eb',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-                      }}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="flex-1 flex flex-col">
+                {/* Gráfico */}
+                <div className="flex-1 flex items-center justify-center" style={{ minHeight: '200px' }}>
+                  <ResponsiveContainer width="100%" height={200}>
+                    <PieChart>
+                      <Pie
+                        data={categoryExpenses}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={false}
+                        outerRadius={isMobile ? 60 : 80}
+                        fill="#8884d8"
+                        dataKey="amount"
+                        animationBegin={0}
+                        animationDuration={800}
+                      >
+                        {categoryExpenses.map((entry, index) => (
+                          <Cell 
+                            key={`cell-${index}`} 
+                            fill={COLORS[index % COLORS.length]}
+                            stroke={COLORS[index % COLORS.length]}
+                            strokeWidth={2}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                        formatter={(value, name, entry) => [
+                          `$ ${Number(value).toLocaleString('en-US')}`, 
+                          entry.payload.category
+                        ]}
+                        labelFormatter={() => ''}
+                        contentStyle={{
+                          backgroundColor: 'white',
+                          border: '1px solid #e5e7eb',
+                          borderRadius: '8px',
+                          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+                {/* Legenda */}
+                <div className="mt-4 flex-shrink-0">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+                    {categoryExpenses.map((entry, index) => (
+                      <div key={entry.category} className="flex items-center space-x-2 text-xs">
+                        <div 
+                          className="w-3 h-3 rounded-full flex-shrink-0" 
+                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                        ></div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-medium font-semibold text-gray-600 truncate">{entry.category}</div>
+                          <div className="text-gray-500">${entry.amount.toLocaleString('en-US')}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 
