@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { dividends, stocks, getDividendsByStock, monthlyDividends } from '@/data/mockData';
 import { Dividend } from '@/data/mockData';
-import { Plus, DollarSign, TrendingUp } from 'lucide-react';
+import { Plus, DollarSign, TrendingUp, Calendar, BarChart3 } from 'lucide-react';
 
 export default function DividendsPage() {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -76,27 +76,30 @@ export default function DividendsPage() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
             <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Proventos</h1>
             <p className="text-gray-600 mt-1">Acompanhe dividendos e JCP recebidos</p>
           </div>
-          <button 
+          <Button 
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-brown-burned text-white px-4 py-2 rounded-lg hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
+            className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Adicionar Provento
-          </button>
+          </Button>
         </div>
 
         {/* Add Form */}
         {showAddForm && (
-          <div className="bg-white rounded-lg shadow-lg border p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Plus className="w-5 h-5" />
-              Novo Provento
-            </h3>
+          <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+            <div className="p-6 border-bottom-brown-burned">
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
+                <Plus className="w-5 h-5 text-brown-burned" />
+                Novo Provento
+              </h3>
+            </div>
+            <div className="p-6 pt-0">
             <form onSubmit={handleAddDividend} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Ação</label>
@@ -155,85 +158,95 @@ export default function DividendsPage() {
                 />
               </div>
               <div className="md:col-span-2 flex gap-2">
-                <button 
+                <Button 
                   type="submit"
-                  className="bg-brown-burned text-white px-4 py-2 rounded-lg hover:bg-brown-burned/90 transition-colors"
+                  className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors"
                 >
                   Adicionar
-                </button>
-                <button 
+                </Button>
+                <Button 
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                  variant="outline"
+                  className="border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white"
                 >
                   Cancelar
-                </button>
+                </Button>
               </div>
-            </form>
+              </form>
+            </div>
           </div>
         )}
 
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Recebido</p>
-                <p className="text-2xl font-bold text-green-600">{formatCurrency(totalDividends)}</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Total Recebido</p>
+                <p className="text-3xl font-bold text-brown-burned">{formatCurrency(totalDividends)}</p>
               </div>
-              <div className="bg-green-100 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total {currentYear}</p>
-                <p className="text-2xl font-bold text-blue-600">{formatCurrency(yearTotal)}</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Total {currentYear}</p>
+                <p className="text-3xl font-bold text-brown-burned">{formatCurrency(yearTotal)}</p>
               </div>
-              <div className="bg-blue-100 p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Média Mensal</p>
-                <p className="text-2xl font-bold text-purple-600">{formatCurrency(monthlyAverage)}</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Média Mensal</p>
+                <p className="text-3xl font-bold text-brown-burned">{formatCurrency(monthlyAverage)}</p>
               </div>
-              <div className="bg-purple-100 p-3 rounded-full">
-                <TrendingUp className="w-6 h-6 text-purple-600" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Filter */}
-        <div className="bg-white rounded-lg shadow-lg border p-6">
-          <div className="flex items-center gap-4">
-            <label className="text-sm font-medium text-gray-700">Filtrar por ação:</label>
-            <select 
-              value={selectedStock}
-              onChange={(e) => setSelectedStock(e.target.value)}
-              className="p-2 border rounded-lg focus:ring-2 focus:ring-brown-burned focus:border-transparent"
-            >
-              <option value="all">Todas as ações</option>
-              {stocks.map(stock => (
-                <option key={stock.id} value={stock.id}>{stock.symbol}</option>
-              ))}
-            </select>
+        <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+          <div className="p-6 border-bottom-brown-burned">
+            <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
+              <Calendar className="w-5 h-5 text-brown-burned" />
+              Filtros
+            </h3>
+          </div>
+          <div className="p-6 pt-0">
+            <div className="flex items-center gap-4">
+              <label className="text-sm font-medium text-gray-700">Filtrar por ação:</label>
+              <select 
+                value={selectedStock}
+                onChange={(e) => setSelectedStock(e.target.value)}
+                className="p-2 border border-brown-burned text-brown-burned rounded-lg focus:ring-2 focus:ring-brown-burned focus:border-transparent"
+              >
+                <option value="all">Todas as ações</option>
+                {stocks.map(stock => (
+                  <option key={stock.id} value={stock.id}>{stock.ticker}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Dividends Table */}
-        <div className="bg-white rounded-lg shadow-lg border">
-          <div className="p-6 border-b">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <DollarSign className="w-5 h-5" />
+        <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+          <div className="p-6 border-bottom-brown-burned">
+            <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-brown-burned" />
               Histórico de Proventos
             </h3>
           </div>
@@ -259,19 +272,19 @@ export default function DividendsPage() {
                     
                     return (
                       <tr key={dividend.id} className="border-b hover:bg-gray-50">
-                        <td className="py-3 px-2 font-medium">{getStockName(dividend.stockId)}</td>
+                        <td className="py-3 px-2 font-medium text-gray-600">{getStockName(dividend.stockId)}</td>
                         <td className="py-3 px-2">
-                          <Badge variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
+                          <Badge className={dividend.type === 'dividend' ? 'bg-brown-burned' : 'bg-gray-500'} variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
                             {dividend.type === 'dividend' ? 'Dividendo' : 'JCP'}
                           </Badge>
                         </td>
-                        <td className="py-3 px-2 text-right font-medium text-green-600">
+                        <td className="py-3 px-2 text-right font-medium text-brown-burned">
                           {formatCurrency(dividend.amount)}
                         </td>
-                        <td className="py-3 px-2 text-right">{formatDate(dividend.exDividendDate)}</td>
-                        <td className="py-3 px-2 text-right">{formatDate(dividend.paymentDate)}</td>
+                        <td className="py-3 px-2 text-right text-gray-600">{formatDate(dividend.exDividendDate)}</td>
+                        <td className="py-3 px-2 text-right text-gray-600">{formatDate(dividend.paymentDate)}</td>
                         <td className="py-3 px-2 text-center">
-                          <Badge variant={isPaid ? 'default' : 'outline'}>
+                          <Badge className={isPaid ? 'bg-brown-burned' : ''} variant={isPaid ? 'default' : 'outline'}>
                             {isPaid ? 'Pago' : 'Pendente'}
                           </Badge>
                         </td>
@@ -293,14 +306,14 @@ export default function DividendsPage() {
                   <div key={dividend.id} className="border rounded-lg p-4 space-y-3">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-medium">{getStockName(dividend.stockId)}</h4>
-                        <Badge variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
+                        <h4 className="font-medium text-gray-600">{getStockName(dividend.stockId)}</h4>
+                        <Badge className={dividend.type === 'dividend' ? 'bg-brown-burned' : 'bg-gray-500'} variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
                           {dividend.type === 'dividend' ? 'Dividendo' : 'JCP'}
                         </Badge>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-green-600">{formatCurrency(dividend.amount)}</p>
-                        <Badge variant={isPaid ? 'default' : 'outline'}>
+                        <p className="font-bold text-brown-burned">{formatCurrency(dividend.amount)}</p>
+                        <Badge className={isPaid ? 'bg-brown-burned' : ''} variant={isPaid ? 'default' : 'outline'}>
                           {isPaid ? 'Pago' : 'Pendente'}
                         </Badge>
                       </div>

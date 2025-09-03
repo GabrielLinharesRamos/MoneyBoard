@@ -94,7 +94,7 @@ export default function TimelinePage() {
                 formatter={(value: number) => [formatCurrency(value), 'Proventos']}
                 labelFormatter={(label) => `Mês: ${label}`}
               />
-              <Bar dataKey="amount" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="amount" fill="#E6D1AD" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         );
@@ -142,9 +142,9 @@ export default function TimelinePage() {
                 yAxisId="right"
                 type="monotone" 
                 dataKey="cumulativeAmount" 
-                stroke="#ef4444" 
+                stroke="#b3854d" 
                 strokeWidth={2}
-                dot={{ fill: '#ef4444', strokeWidth: 2, r: 4 }}
+                dot={{ fill: '#b3854d', strokeWidth: 2, r: 4 }}
               />
             </ComposedChart>
           </ResponsiveContainer>
@@ -173,9 +173,9 @@ export default function TimelinePage() {
               <Line 
                 type="monotone" 
                 dataKey="amount" 
-                stroke="#3b82f6" 
+                stroke="#b3854d" 
                 strokeWidth={3}
-                dot={{ fill: '#3b82f6', strokeWidth: 2, r: 5 }}
+                dot={{ fill: '#b3854d', strokeWidth: 2, r: 5 }}
                 activeDot={{ r: 8 }}
               />
             </LineChart>
@@ -185,7 +185,7 @@ export default function TimelinePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen">
       <Layout>
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
@@ -204,12 +204,14 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total do Período</p>
-                  <div className="text-2xl font-bold text-green-600">
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Total do Período</p>
+                  <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(totalDividends)}
                   </div>
                 </div>
-                <DollarSign className="w-8 h-8 text-green-600" />
+                <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                  <DollarSign className="w-6 h-6 text-white" />
+                </div>
               </div>
             </div>
           </div>
@@ -218,12 +220,14 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Média Mensal</p>
-                  <div className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Média Mensal</p>
+                  <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(averageMonthly)}
                   </div>
                 </div>
-                <TrendingUp className="w-8 h-8 text-gray-900" />
+                <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
               </div>
             </div>
           </div>
@@ -232,15 +236,17 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Maior Mês</p>
-                  <div className="text-2xl font-bold text-blue-600">
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Maior Mês</p>
+                  <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(highestMonth?.amount || 0)}
                   </div>
                   <div className="text-xs text-gray-500 mt-1">
                     {highestMonth?.month ? formatMonth(highestMonth.month) : 'N/A'}
                   </div>
                 </div>
-                <TrendingUp className="w-8 h-8 text-blue-600" />
+                <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
               </div>
             </div>
           </div>
@@ -249,15 +255,17 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm font-medium text-gray-600">Menor Mês</p>
-                    <div className="text-2xl font-bold text-orange-600">
+                    <p className="text-sm font-medium text-gray-600 font-semibold">Menor Mês</p>
+                    <div className="text-2xl font-bold text-orange-600 text-brown-burned">
                       {formatCurrency(lowestMonth?.amount || 0)}
                     </div>
                     <div className="text-xs text-gray-500 mt-1">
                       {lowestMonth?.month ? formatMonth(lowestMonth.month) : 'N/A'}
                     </div>
                   </div>
-                  <BarChart3 className="w-8 h-8 text-orange-600" />
+                  <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                    <BarChart3 className="w-6 h-6 text-white" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -313,7 +321,7 @@ export default function TimelinePage() {
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="px-3 py-2 border border-brown-burned text-brown-burned rounded-md focus:outline-none focus:ring-2"
                 >
                   <option value="all">Todos os anos</option>
                   {availableYears.map((year) => (
@@ -334,7 +342,7 @@ export default function TimelinePage() {
 
         {/* Gráfico */}
         <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 mb-6">
-          <div className="p-6 border-bottom-brown-burned">
+          <div className="p-6 border-bottom-brown-burned mb-4">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-brown-burned" />
               Evolução Mensal dos Proventos
@@ -377,11 +385,11 @@ export default function TimelinePage() {
                   
                   return (
                     <tr key={item.month} className="border-b hover:bg-gray-50">
-                      <td className="py-3 px-2 font-medium">{item.monthFormatted}</td>
-                      <td className="py-3 px-2 text-right font-medium text-green-600">
+                      <td className="py-3 px-2 font-medium text-gray-600">{item.monthFormatted}</td>
+                      <td className="py-3 px-2 text-right font-medium text-gray-600">
                         {formatCurrency(item.amount)}
                       </td>
-                      <td className="py-3 px-2 text-right">
+                      <td className="py-3 px-2 text-right text-gray-600">
                         {formatCurrency(item.cumulativeAmount)}
                       </td>
                       <td className={`py-3 px-2 text-right ${

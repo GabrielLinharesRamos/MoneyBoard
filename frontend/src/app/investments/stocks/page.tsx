@@ -56,27 +56,30 @@ export default function StocksPage() {
     <Layout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
             <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Ações</h1>
             <p className="text-gray-600 mt-1">Gerencie sua carteira de ações</p>
           </div>
-          <button 
+          <Button 
             onClick={() => setShowAddForm(!showAddForm)}
-            className="bg-brown-burned text-white px-4 py-2 rounded-lg hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
+            className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
             Adicionar Ação
-          </button>
+          </Button>
         </div>
 
         {/* Add Form */}
         {showAddForm && (
-          <div className="bg-white rounded-lg shadow-lg border p-6">
-            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
-              <Plus className="w-5 h-5" />
-              Nova Ação
-            </h3>
+          <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
+            <div className="p-6 border-bottom-brown-burned">
+              <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
+                <Plus className="w-5 h-5 text-brown-burned" />
+                Nova Ação
+              </h3>
+            </div>
+            <div className="p-6 pt-0">
             <form onSubmit={handleAddStock} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Símbolo</label>
@@ -134,54 +137,56 @@ export default function StocksPage() {
                 />
               </div>
               <div className="md:col-span-2 flex gap-2">
-                <button 
+                <Button 
                   type="submit"
-                  className="bg-brown-burned text-white px-4 py-2 rounded-lg hover:bg-brown-burned/90 transition-colors"
+                  className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors"
                 >
                   Adicionar
-                </button>
-                <button 
+                </Button>
+                <Button 
                   type="button"
                   onClick={() => setShowAddForm(false)}
-                  className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors"
+                  variant="outline"
+                  className="border-gray-500 text-gray-500 hover:bg-gray-500 hover:text-white"
                 >
                   Cancelar
-                </button>
+                </Button>
               </div>
             </form>
+            </div>
           </div>
         )}
 
         {/* Portfolio Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Valor Investido</p>
-                <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalInvested)}</p>
+                <p className="text-sm font-medium text-brown-burned/70">Valor Investido</p>
+                <p className="text-2xl font-bold bg-brown-burned bg-clip-text text-transparent">{formatCurrency(totalInvested)}</p>
               </div>
-              <div className="bg-blue-100 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-blue-600" />
+              <div className="bg-brown-burned/10 p-3 rounded-full">
+                <DollarSign className="w-6 h-6 text-brown-burned" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Valor Atual</p>
-                <p className="text-2xl font-bold text-gray-900">{formatCurrency(totalCurrentValue)}</p>
+                <p className="text-sm font-medium text-brown-burned/70">Valor Atual</p>
+                <p className="text-2xl font-bold bg-brown-burned bg-clip-text text-transparent">{formatCurrency(totalCurrentValue)}</p>
               </div>
-              <div className="bg-green-100 p-3 rounded-full">
-                <BarChart3 className="w-6 h-6 text-green-600" />
+              <div className="bg-brown-burned/10 p-3 rounded-full">
+                <BarChart3 className="w-6 h-6 text-brown-burned" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Ganho/Perda</p>
+                <p className="text-sm font-medium text-brown-burned/70">Ganho/Perda</p>
                 <p className={`text-2xl font-bold ${totalGainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {formatCurrency(totalGainLoss)}
                 </p>
@@ -196,10 +201,10 @@ export default function StocksPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-lg border p-6">
+          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Rentabilidade</p>
+                <p className="text-sm font-medium text-brown-burned/70">Rentabilidade</p>
                 <p className={`text-2xl font-bold ${totalGainLossPercentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {formatPercentage(totalGainLossPercentage)}
                 </p>
@@ -216,10 +221,10 @@ export default function StocksPage() {
         </div>
 
         {/* Stocks List */}
-        <div className="bg-white rounded-lg shadow-lg border">
-          <div className="p-6 border-b">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <BarChart3 className="w-5 h-5" />
+        <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 hover:shadow-xl transition-all duration-300">
+          <div className="p-6 border-b border-brown-burned/20">
+            <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
+              <BarChart3 className="w-5 h-5 text-brown-burned" />
               Carteira de Ações
             </h3>
           </div>
@@ -227,16 +232,16 @@ export default function StocksPage() {
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-brown-burned/5">
                 <tr>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Ação</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Qtd</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Preço Médio</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Preço Atual</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Valor Investido</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Valor Atual</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Ganho/Perda</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">%</th>
+                  <th className="text-left py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Ação</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Qtd</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Preço Médio</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Preço Atual</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Valor Investido</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Valor Atual</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Ganho/Perda</th>
+                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">%</th>
                 </tr>
               </thead>
               <tbody>
@@ -248,23 +253,42 @@ export default function StocksPage() {
                    const gainLossPercentage = (gainLoss / investedValue) * 100;
                   
                   return (
-                    <tr key={stock.id} className="border-b hover:bg-gray-50">
+                    <tr key={stock.id} className="border-b hover:bg-brown-burned/5 transition-colors duration-200">
                       <td className="py-3 px-4">
-                        <div>
-                           <p className="font-medium">{stock.ticker}</p>
-                           <p className="text-sm text-gray-600">{stock.companyName}</p>
-                         </div>
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 w-10 h-10 mr-3">
+                            <div className="w-10 h-10 bg-brown-burned/10 rounded-full flex items-center justify-center">
+                              <span className="text-sm font-medium text-brown-burned">{stock.ticker.charAt(0)}</span>
+                            </div>
+                          </div>
+                          <div>
+                            <p className="font-medium text-brown-burned">{stock.ticker}</p>
+                            <p className="text-sm text-brown-burned/70">{stock.companyName}</p>
+                          </div>
+                        </div>
                       </td>
-                      <td className="py-3 px-4 text-right">{stock.quantity}</td>
-                      <td className="py-3 px-4 text-right">{formatCurrency(stock.purchasePrice)}</td>
-                      <td className="py-3 px-4 text-right">{formatCurrency(currentPrice)}</td>
-                      <td className="py-3 px-4 text-right">{formatCurrency(investedValue)}</td>
-                      <td className="py-3 px-4 text-right">{formatCurrency(currentValue)}</td>
-                      <td className={`py-3 px-4 text-right font-medium ${gainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {formatCurrency(gainLoss)}
+                      <td className="py-3 px-4 text-right text-brown-burned">{stock.quantity}</td>
+                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(stock.purchasePrice)}</td>
+                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(currentPrice)}</td>
+                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(investedValue)}</td>
+                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(currentValue)}</td>
+                      <td className="py-3 px-4 text-right">
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          gainLoss >= 0 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {formatCurrency(gainLoss)}
+                        </span>
                       </td>
-                      <td className={`py-3 px-4 text-right font-medium ${gainLossPercentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                        {formatPercentage(gainLossPercentage)}
+                      <td className="py-3 px-4 text-right">
+                        <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                          gainLossPercentage >= 0 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'
+                        }`}>
+                          {formatPercentage(gainLossPercentage)}
+                        </span>
                       </td>
                     </tr>
                   );
@@ -283,36 +307,43 @@ export default function StocksPage() {
               const gainLossPercentage = (gainLoss / investedValue) * 100;
               
               return (
-                <div key={stock.id} className="border rounded-lg p-4 space-y-3">
+                <div key={stock.id} className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl p-4 border-2 border-brown-burned/20 hover:shadow-lg transition-all duration-300">
                   <div className="flex justify-between items-start">
-                    <div>
-                      <h4 className="font-medium">{stock.symbol}</h4>
-                      <p className="text-sm text-gray-600">{stock.companyName}</p>
-                      <Badge variant="outline">{stock.quantity} ações</Badge>
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 w-10 h-10 mr-3">
+                        <div className="w-10 h-10 bg-brown-burned/10 rounded-full flex items-center justify-center">
+                          <span className="text-sm font-medium text-brown-burned">{stock.ticker.charAt(0)}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-brown-burned">{stock.ticker}</h4>
+                        <p className="text-sm text-brown-burned/70">{stock.companyName}</p>
+                        <Badge variant="outline" className="text-xs">{stock.quantity} ações</Badge>
+                      </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold">{formatCurrency(currentValue)}</p>
+                      <p className="font-bold text-brown-burned">{formatCurrency(currentValue)}</p>
                       <p className={`text-sm font-medium ${gainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                         {formatCurrency(gainLoss)} ({formatPercentage(gainLossPercentage)})
                       </p>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-2 gap-4 text-sm mt-3">
                     <div>
-                      <span className="text-gray-600">Preço Médio:</span>
-                      <p className="font-medium">{formatCurrency(stock.averagePrice)}</p>
+                      <span className="text-brown-burned/70">Preço Médio:</span>
+                      <p className="font-medium text-brown-burned">{formatCurrency(stock.purchasePrice)}</p>
                     </div>
                     <div>
-                      <span className="text-gray-600">Preço Atual:</span>
-                      <p className="font-medium">{formatCurrency(currentPrice)}</p>
+                      <span className="text-brown-burned/70">Preço Atual:</span>
+                      <p className="font-medium text-brown-burned">{formatCurrency(currentPrice)}</p>
                     </div>
                     <div>
-                      <span className="text-gray-600">Investido:</span>
-                      <p className="font-medium">{formatCurrency(investedValue)}</p>
+                      <span className="text-brown-burned/70">Investido:</span>
+                      <p className="font-medium text-brown-burned">{formatCurrency(investedValue)}</p>
                     </div>
                     <div>
-                      <span className="text-gray-600">Setor:</span>
-                      <p className="font-medium">{stock.sector}</p>
+                      <span className="text-brown-burned/70">Setor:</span>
+                      <p className="font-medium text-brown-burned">{stock.sector}</p>
                     </div>
                   </div>
                 </div>

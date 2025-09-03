@@ -268,12 +268,18 @@ export const dividends: Dividend[] = [
 
 // Dados de dividendos mensais
 export const monthlyDividends: MonthlyDividend[] = [
-  { month: 'Jan', amount: 270, count: 3 },
-  { month: 'Fev', amount: 341, count: 3 },
-  { month: 'Mar', amount: 300, count: 3 },
-  { month: 'Abr', amount: 112.5, count: 1 },
-  { month: 'Mai', amount: 0, count: 0 },
-  { month: 'Jun', amount: 0, count: 0 }
+  { month: '2024-01', amount: 270, count: 3 },
+  { month: '2024-02', amount: 341, count: 3 },
+  { month: '2024-03', amount: 300, count: 3 },
+  { month: '2024-04', amount: 112.5, count: 1 },
+  { month: '2024-05', amount: 185, count: 2 },
+  { month: '2024-06', amount: 220, count: 2 },
+  { month: '2024-07', amount: 195, count: 1 },
+  { month: '2024-08', amount: 310, count: 4 },
+  { month: '2024-09', amount: 275, count: 3 },
+  { month: '2024-10', amount: 340, count: 3 },
+  { month: '2024-11', amount: 290, count: 2 },
+  { month: '2024-12', amount: 380, count: 4 }
 ];
 
 // Função para calcular resumo dos investimentos
