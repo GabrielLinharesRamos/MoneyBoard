@@ -18,6 +18,20 @@ export interface Category {
   budget?: number;
 }
 
+export interface ExpenseGoal {
+  id: string;
+  categoryId: string;
+  monthlyLimit: number;
+  currentSpent: number;
+  alertThreshold: number; // Porcentagem para alerta (ex: 80)
+}
+
+export interface MonthlyExpenseData {
+  month: string;
+  totalExpenses: number;
+  categoryBreakdown: { [category: string]: number };
+}
+
 export interface MonthlyData {
   month: string;
   income: number;
@@ -32,18 +46,32 @@ export interface CategoryExpense {
   color: string;
 }
 
-// Categorias disponíveis
+// Categorias disponíveis com orçamentos
 export const categories: Category[] = [
-  { id: '1', name: 'Alimentação', color: '#FFD700', icon: 'UtensilsCrossed' },
-  { id: '2', name: 'Transporte', color: '#FFA500', icon: 'Car' },
-  { id: '3', name: 'Moradia', color: '#FF8C00', icon: 'Home' },
-  { id: '4', name: 'Saúde', color: '#FF6347', icon: 'Heart' },
-  { id: '5', name: 'Educação', color: '#DAA520', icon: 'GraduationCap' },
-  { id: '6', name: 'Entretenimento', color: '#B8860B', icon: 'Gamepad2' },
-  { id: '7', name: 'Compras', color: '#CD853F', icon: 'ShoppingBag' },
-  { id: '8', name: 'Investimentos', color: '#D2691E', icon: 'TrendingUp' },
+  { id: '1', name: 'Alimentação', color: '#b3854d', icon: 'UtensilsCrossed', budget: 800 },
+  { id: '2', name: 'Transporte', color: '#8b6914', icon: 'Car', budget: 400 },
+  { id: '3', name: 'Moradia', color: '#a0522d', icon: 'Home', budget: 1500 },
+  { id: '4', name: 'Saúde', color: '#cd853f', icon: 'Heart', budget: 300 },
+  { id: '5', name: 'Educação', color: '#daa520', icon: 'GraduationCap', budget: 200 },
+  { id: '6', name: 'Entretenimento', color: '#d2691e', icon: 'Gamepad2', budget: 250 },
+  { id: '7', name: 'Compras', color: '#bc8f8f', icon: 'ShoppingBag', budget: 300 },
+  { id: '8', name: 'Investimentos', color: '#8b4513', icon: 'TrendingUp', budget: 1000 },
   { id: '9', name: 'Salário', color: '#32CD32', icon: 'Banknote' },
   { id: '10', name: 'Freelance', color: '#228B22', icon: 'Briefcase' },
+  { id: '11', name: 'Serviços', color: '#9b7653', icon: 'Settings', budget: 150 },
+  { id: '12', name: 'Impostos', color: '#8b7355', icon: 'FileText', budget: 500 },
+];
+
+// Metas de gastos por categoria
+export const expenseGoals: ExpenseGoal[] = [
+  { id: '1', categoryId: '1', monthlyLimit: 800, currentSpent: 650, alertThreshold: 80 },
+  { id: '2', categoryId: '2', monthlyLimit: 400, currentSpent: 320, alertThreshold: 85 },
+  { id: '3', categoryId: '3', monthlyLimit: 1500, currentSpent: 1200, alertThreshold: 90 },
+  { id: '4', categoryId: '4', monthlyLimit: 300, currentSpent: 185, alertThreshold: 75 },
+  { id: '5', categoryId: '5', monthlyLimit: 200, currentSpent: 120, alertThreshold: 80 },
+  { id: '6', categoryId: '6', monthlyLimit: 250, currentSpent: 180, alertThreshold: 85 },
+  { id: '7', categoryId: '7', monthlyLimit: 300, currentSpent: 280, alertThreshold: 80 },
+  { id: '8', categoryId: '11', monthlyLimit: 150, currentSpent: 95, alertThreshold: 75 },
 ];
 
 // Transações mockadas
@@ -59,6 +87,16 @@ export const transactions: Transaction[] = [
   { id: '8', date: '2024-01-15', description: 'Restaurante', amount: -120, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
   { id: '9', date: '2024-01-18', description: 'Gasolina', amount: -180, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
   { id: '10', date: '2024-01-20', description: 'Curso Online', amount: -199, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '31', date: '2024-01-04', description: 'Padaria do João', amount: -25.80, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
+  { id: '32', date: '2024-01-06', description: 'Conta de luz', amount: -85.50, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
+  { id: '33', date: '2024-01-08', description: 'Spotify', amount: -16.90, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '34', date: '2024-01-11', description: 'Lanchonete', amount: -35.50, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
+  { id: '35', date: '2024-01-13', description: 'Internet', amount: -89.90, category: 'Serviços', type: 'expense', account: 'Conta Corrente' },
+  { id: '36', date: '2024-01-16', description: 'Livro técnico', amount: -65.00, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '37', date: '2024-01-19', description: 'Ações PETR4', amount: -500.00, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
+  { id: '38', date: '2024-01-22', description: 'Tênis', amount: -180.00, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '39', date: '2024-01-24', description: 'IPTU', amount: -180.00, category: 'Impostos', type: 'expense', account: 'Conta Corrente' },
+  { id: '40', date: '2024-01-26', description: 'Dentista', amount: -200.00, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
   
   // Fevereiro 2024
   { id: '11', date: '2024-02-01', description: 'Salário', amount: 5500, category: 'Salário', type: 'income', account: 'Conta Corrente' },
@@ -71,6 +109,16 @@ export const transactions: Transaction[] = [
   { id: '18', date: '2024-02-20', description: 'Investimento CDB', amount: -1000, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
   { id: '19', date: '2024-02-22', description: 'Uber', amount: -35, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
   { id: '20', date: '2024-02-25', description: 'Médico', amount: -200, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
+  { id: '41', date: '2024-02-02', description: 'Padaria Central', amount: -28.50, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
+  { id: '42', date: '2024-02-04', description: 'Conta de gás', amount: -75.30, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
+  { id: '43', date: '2024-02-06', description: 'Spotify Premium', amount: -16.90, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '44', date: '2024-02-09', description: 'Lanchonete do trabalho', amount: -42.80, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
+  { id: '45', date: '2024-02-11', description: 'Telefone fixo', amount: -65.90, category: 'Serviços', type: 'expense', account: 'Conta Corrente' },
+  { id: '46', date: '2024-02-13', description: 'Curso online Udemy', amount: -89.90, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '47', date: '2024-02-17', description: 'Ações VALE3', amount: -800.00, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
+  { id: '48', date: '2024-02-19', description: 'Sapatos', amount: -250.00, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
+  { id: '49', date: '2024-02-21', description: 'IPVA', amount: -320.00, category: 'Impostos', type: 'expense', account: 'Conta Corrente' },
+  { id: '50', date: '2024-02-23', description: 'Fisioterapeuta', amount: -150.00, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
   
   // Março 2024
   { id: '21', date: '2024-03-01', description: 'Salário', amount: 5500, category: 'Salário', type: 'income', account: 'Conta Corrente' },
@@ -93,6 +141,58 @@ export const monthlyData: MonthlyData[] = [
   { month: 'Abr', income: 5800, expenses: 2850, balance: 2950 },
   { month: 'Mai', income: 6200, expenses: 3100, balance: 3100 },
   { month: 'Jun', income: 6500, expenses: 2900, balance: 3600 },
+];
+
+// Dados mensais específicos para controle de gastos
+export const monthlyExpenseData: MonthlyExpenseData[] = [
+  {
+    month: 'Janeiro 2024',
+    totalExpenses: 2460,
+    categoryBreakdown: {
+      'Alimentação': 275.80,
+      'Transporte': 155.50,
+      'Moradia': 1285.50,
+      'Saúde': 195.90,
+      'Educação': 164.90,
+      'Entretenimento': 74.90,
+      'Compras': 360.00,
+      'Investimentos': 500.00,
+      'Serviços': 89.90,
+      'Impostos': 180.00
+    }
+  },
+  {
+    month: 'Fevereiro 2024',
+    totalExpenses: 2340,
+    categoryBreakdown: {
+      'Alimentação': 347.20,
+      'Transporte': 235.00,
+      'Moradia': 1141.10,
+      'Saúde': 350.00,
+      'Educação': 239.90,
+      'Entretenimento': 71.70,
+      'Compras': 720.00,
+      'Investimentos': 1800.00,
+      'Serviços': 155.80,
+      'Impostos': 320.00
+    }
+  },
+  {
+    month: 'Março 2024',
+    totalExpenses: 2680,
+    categoryBreakdown: {
+      'Alimentação': 420.50,
+      'Transporte': 180.00,
+      'Moradia': 1350.00,
+      'Saúde': 280.00,
+      'Educação': 120.00,
+      'Entretenimento': 95.50,
+      'Compras': 180.00,
+      'Investimentos': 600.00,
+      'Serviços': 125.00,
+      'Impostos': 250.00
+    }
+  }
 ];
 
 // Despesas por categoria para gráfico de pizza
