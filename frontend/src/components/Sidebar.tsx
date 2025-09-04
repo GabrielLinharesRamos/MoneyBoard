@@ -52,10 +52,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         {/* Logo */}
         <div className="flex items-center justify-center h-16 border-b border-gradient-to-r from-yellow-400 to-yellow-600">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-brown-burned-grad rounded-xl flex items-center justify-center shadow-lg">
               <Wallet className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-700 bg-clip-text text-transparent">
+            <span className="text-xl font-bold text-brown-burned bg-clip-text text-transparent">
               MoneyBoard
             </span>
           </div>

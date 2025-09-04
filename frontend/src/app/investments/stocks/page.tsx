@@ -159,70 +159,76 @@ export default function StocksPage() {
 
         {/* Portfolio Summary */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
+
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-brown-burned/70">Valor Investido</p>
-                <p className="text-2xl font-bold bg-brown-burned bg-clip-text text-transparent">{formatCurrency(totalInvested)}</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Valor Investido</p>
+                <p className="text-2xl font-bold text-brown-burned">
+                  {formatCurrency(totalInvested)}
+                </p>
               </div>
-              <div className="bg-brown-burned/10 p-3 rounded-full">
-                <DollarSign className="w-6 h-6 text-brown-burned" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                <DollarSign className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-brown-burned/70">Valor Atual</p>
-                <p className="text-2xl font-bold bg-brown-burned bg-clip-text text-transparent">{formatCurrency(totalCurrentValue)}</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Valor Atual</p>
+                <p className="text-2xl font-bold text-brown-burned">
+                  {formatCurrency(totalCurrentValue)}
+                </p>
               </div>
-              <div className="bg-brown-burned/10 p-3 rounded-full">
-                <BarChart3 className="w-6 h-6 text-brown-burned" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                <BarChart3 className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-brown-burned/70">Ganho/Perda</p>
-                <p className={`text-2xl font-bold ${totalGainLoss >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Ganho/Perda</p>
+                <p className="text-2xl font-bold text-brown-burned">
                   {formatCurrency(totalGainLoss)}
                 </p>
               </div>
-              <div className={`p-3 rounded-full ${totalGainLoss >= 0 ? 'bg-green-100' : 'bg-red-100'}`}>
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
                 {totalGainLoss >= 0 ? (
-                  <TrendingUp className="w-6 h-6 text-green-600" />
+                  <TrendingUp className="w-6 h-6 text-white"/>
                 ) : (
-                  <TrendingDown className="w-6 h-6 text-red-600" />
+                  <TrendingDown className="w-6 h-6 text-white" />
                 )}
               </div>
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 p-6 hover:shadow-xl transition-all duration-300">
+          <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-brown-burned/70">Rentabilidade</p>
-                <p className={`text-2xl font-bold ${totalGainLossPercentage >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Rentabilidade</p>
+                <p className="text-2xl font-bold text-brown-burned">
                   {formatPercentage(totalGainLossPercentage)}
                 </p>
               </div>
-              <div className={`p-3 rounded-full ${totalGainLossPercentage >= 0 ? 'bg-green-100' : 'bg-red-100'}`}>
-                {totalGainLossPercentage >= 0 ? (
-                  <TrendingUp className="w-6 h-6 text-green-600" />
+              <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
+                {totalGainLoss >= 0 ? (
+                  <TrendingUp className="w-6 h-6 text-white"/>
                 ) : (
-                  <TrendingDown className="w-6 h-6 text-red-600" />
+                  <TrendingDown className="w-6 h-6 text-white" />
                 )}
               </div>
             </div>
           </div>
+
         </div>
 
         {/* Stocks List */}
         <div className="bg-gradient-to-br from-white to-brown-burned/5 rounded-xl shadow-lg border-2 border-brown-burned/20 hover:shadow-xl transition-all duration-300">
-          <div className="p-6 border-b border-brown-burned/20">
+          <div className="p-6 border-bottom-brown-burned">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-brown-burned" />
               Carteira de Ações
@@ -231,17 +237,17 @@ export default function StocksPage() {
           
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-brown-burned/5">
+            <table className="w-full mt-1">
+              <thead className='border-b'>
                 <tr>
-                  <th className="text-left py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Ação</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Qtd</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Preço Médio</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Preço Atual</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Valor Investido</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Valor Atual</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">Ganho/Perda</th>
-                  <th className="text-right py-3 px-4 font-medium text-brown-burned/70 uppercase tracking-wider text-xs">%</th>
+                  <th className="text-left py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Ação</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Qtd</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Preço Médio</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Preço Atual</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Valor Investido</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Valor Atual</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Ganho/Perda</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">%</th>
                 </tr>
               </thead>
               <tbody>
@@ -263,15 +269,15 @@ export default function StocksPage() {
                           </div>
                           <div>
                             <p className="font-medium text-brown-burned">{stock.ticker}</p>
-                            <p className="text-sm text-brown-burned/70">{stock.companyName}</p>
+                            <p className="text-sm text-gray-500">{stock.companyName}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-right text-brown-burned">{stock.quantity}</td>
-                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(stock.purchasePrice)}</td>
-                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(currentPrice)}</td>
-                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(investedValue)}</td>
-                      <td className="py-3 px-4 text-right text-brown-burned">{formatCurrency(currentValue)}</td>
+                      <td className="py-3 px-4 text-right text-gray-600 font-medium">{stock.quantity}</td>
+                      <td className="py-3 px-4 text-right text-gray-600 font-medium">{formatCurrency(stock.purchasePrice)}</td>
+                      <td className="py-3 px-4 text-right text-gray-600 font-medium">{formatCurrency(currentPrice)}</td>
+                      <td className="py-3 px-4 text-right text-gray-600 font-medium">{formatCurrency(investedValue)}</td>
+                      <td className="py-3 px-4 text-right text-gray-600 font-medium">{formatCurrency(currentValue)}</td>
                       <td className="py-3 px-4 text-right">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                           gainLoss >= 0 
