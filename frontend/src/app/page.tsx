@@ -72,7 +72,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <Layout>
+    <Layout title="Dashboard">
       <div className="space-y-6">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
@@ -101,9 +101,9 @@ export default function Dashboard() {
                 className="border-brown-burned rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
                 <option value="all">All Categories</option>
-                <option value="Alimentação">Food</option>
-                <option value="Transporte">Transport</option>
-                <option value="Moradia">Housing</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Housing">Housing</option>
               </select>
             </div>
           </div>

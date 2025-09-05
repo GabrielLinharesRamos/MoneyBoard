@@ -46,14 +46,14 @@ export default function ImportStatements() {
   const [showPreview, setShowPreview] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Dados mockados de transações processadas
+  // Mock data for processed transactions
   const mockProcessedTransactions: ProcessedTransaction[] = [
     {
       id: '1',
       date: '2024-01-15',
       description: 'SUPERMERCADO ABC LTDA',
       amount: -156.78,
-      category: 'Alimentação',
+      category: 'Food',
       type: 'expense',
       confidence: 95
     },
@@ -62,7 +62,7 @@ export default function ImportStatements() {
       date: '2024-01-14',
       description: 'POSTO SHELL',
       amount: -89.50,
-      category: 'Transporte',
+      category: 'Transportation',
       type: 'expense',
       confidence: 98
     },
@@ -71,7 +71,7 @@ export default function ImportStatements() {
       date: '2024-01-13',
       description: 'TRANSFERENCIA PIX RECEBIDA',
       amount: 500.00,
-      category: 'Transferência',
+      category: 'Transfer',
       type: 'income',
       confidence: 100
     },
@@ -80,7 +80,7 @@ export default function ImportStatements() {
       date: '2024-01-12',
       description: 'FARMACIA POPULAR',
       amount: -45.30,
-      category: 'Saúde',
+      category: 'Health',
       type: 'expense',
       confidence: 92
     },
@@ -89,7 +89,7 @@ export default function ImportStatements() {
       date: '2024-01-11',
       description: 'NETFLIX BRASIL',
       amount: -29.90,
-      category: 'Entretenimento',
+      category: 'Entertainment',
       type: 'expense',
       confidence: 100
     }
@@ -156,7 +156,7 @@ export default function ImportStatements() {
                   status: success ? 'completed' : 'error',
                   transactionsCount: success ? Math.floor(Math.random() * 50) + 10 : undefined,
                   totalAmount: success ? (Math.random() * 5000) + 1000 : undefined,
-                  errorMessage: success ? undefined : 'Formato de arquivo não suportado ou arquivo corrompido'
+                  errorMessage: success ? undefined : 'Unsupported file format or corrupted file'
                 }
               : f
           ));
@@ -200,15 +200,15 @@ export default function ImportStatements() {
   const getStatusText = (status: ImportedFile['status']) => {
     switch (status) {
       case 'uploading':
-        return 'Enviando...';
+        return 'Uploading...';
       case 'processing':
-        return 'Processando...';
+        return 'Processing...';
       case 'completed':
-        return 'Concluído';
+        return 'Completed';
       case 'error':
-        return 'Erro';
+        return 'Error';
       default:
-        return 'Pendente';
+        return 'Pending';
     }
   };
 
@@ -217,14 +217,14 @@ export default function ImportStatements() {
   const totalAmount = completedFiles.reduce((sum, f) => sum + (f.totalAmount || 0), 0);
 
   return (
-    <Layout title="Importação de Extratos">
+    <Layout title="Statement Import">
       <div className="space-y-6">
         {/* Estatísticas */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-gradient-to-br from-white to-green-50 p-6 rounded-xl shadow-lg border-2 border-green-200 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600">Arquivos Processados</p>
+                <p className="text-sm font-semibold text-gray-600">Processed Files</p>
                 <p className="text-2xl font-bold text-green-700">
                   {completedFiles.length}
                 </p>
@@ -238,7 +238,7 @@ export default function ImportStatements() {
           <div className="bg-gradient-to-br from-white to-blue-50 p-6 rounded-xl shadow-lg border-2 border-blue-200 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600">Transações Importadas</p>
+                <p className="text-sm font-semibold text-gray-600">Imported Transactions</p>
                 <p className="text-2xl font-bold text-blue-700">
                   {totalTransactions}
                 </p>
@@ -252,9 +252,9 @@ export default function ImportStatements() {
           <div className="bg-gradient-to-br from-white to-yellow-50 p-6 rounded-xl shadow-lg border-2 border-yellow-300 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600">Valor Total</p>
+                <p className="text-sm font-semibold text-gray-600">Total Value</p>
                 <p className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent">
-                  R$ {totalAmount.toLocaleString('pt-BR')}
+                  US$ {totalAmount.toLocaleString('en-US')}
                 </p>
               </div>
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 via-yellow-500 to-yellow-600 rounded-xl shadow-lg flex items-center justify-center">
@@ -266,7 +266,7 @@ export default function ImportStatements() {
           <div className="bg-gradient-to-br from-white to-purple-50 p-6 rounded-xl shadow-lg border-2 border-purple-200 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600">Taxa de Sucesso</p>
+                <p className="text-sm font-semibold text-gray-600">Success Rate</p>
                 <p className="text-2xl font-bold text-purple-700">
                   {files.length > 0 ? Math.round((completedFiles.length / files.length) * 100) : 0}%
                 </p>
@@ -280,7 +280,7 @@ export default function ImportStatements() {
 
         {/* Área de Upload */}
         <div className="bg-gradient-to-br from-white to-yellow-50 p-6 rounded-xl shadow-lg border-2 border-yellow-200 hover:shadow-xl transition-all duration-300">
-          <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Importar Novo Extrato</h3>
+          <h3 className="text-lg font-bold bg-gradient-to-r from-yellow-600 to-yellow-800 bg-clip-text text-transparent mb-4">Import New Statement</h3>
           
           <div
             className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 ${
@@ -309,10 +309,10 @@ export default function ImportStatements() {
               
               <div>
                 <p className="text-lg font-semibold text-gray-900">
-                  Arraste arquivos aqui ou clique para selecionar
+                  Drag files here or click to select
                 </p>
                 <p className="text-sm text-gray-600 font-medium mt-2">
-                  Suportamos arquivos CSV, Excel, OFX, QIF e TXT até 10MB
+                  We support CSV, Excel, OFX, QIF and TXT files up to 10MB
                 </p>
               </div>
               
@@ -321,13 +321,13 @@ export default function ImportStatements() {
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
                 <Upload className="w-4 h-4 mr-2" />
-                Selecionar Arquivos
+                Select Files
               </button>
             </div>
           </div>
           
           <div className="mt-4 text-sm text-gray-600">
-            <p className="font-medium mb-2">Formatos suportados:</p>
+            <p className="font-medium mb-2">Supported formats:</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               <span className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -347,7 +347,7 @@ export default function ImportStatements() {
               </span>
               <span className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>TXT (Texto estruturado)</span>
+                <span>TXT (Structured text)</span>
               </span>
             </div>
           </div>
@@ -357,7 +357,7 @@ export default function ImportStatements() {
         {files.length > 0 && (
           <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg border-2 border-gray-200">
             <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-              <h3 className="text-lg font-bold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">Arquivos Importados</h3>
+              <h3 className="text-lg font-bold bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">Imported Files</h3>
             </div>
             
             <div className="divide-y divide-gray-100">
@@ -374,14 +374,14 @@ export default function ImportStatements() {
                           <span>•</span>
                           <span>{getStatusText(file.status)}</span>
                           <span>•</span>
-                          <span>{file.uploadedAt.toLocaleString('pt-BR')}</span>
+                          <span>{file.uploadedAt.toLocaleString('en-US')}</span>
                         </div>
                         
                         {file.status === 'completed' && (
                           <div className="flex items-center space-x-4 text-sm text-green-600 mt-1">
-                            <span>{file.transactionsCount} transações</span>
+                            <span>{file.transactionsCount} transactions</span>
                             <span>•</span>
-                            <span>R$ {file.totalAmount?.toLocaleString('pt-BR')}</span>
+                            <span>US$ {file.totalAmount?.toLocaleString('en-US')}</span>
                           </div>
                         )}
                         
@@ -400,14 +400,14 @@ export default function ImportStatements() {
                               setShowPreview(true);
                             }}
                             className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                            title="Visualizar transações"
+                            title="View transactions"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
                           
                           <button
                             className="p-2 text-gray-400 hover:text-green-600 transition-colors"
-                            title="Baixar relatório"
+                            title="Download report"
                           >
                             <Download className="w-4 h-4" />
                           </button>
@@ -417,7 +417,7 @@ export default function ImportStatements() {
                       <button
                         onClick={() => removeFile(file.id)}
                         className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                        title="Remover arquivo"
+                        title="Remove file"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -447,7 +447,7 @@ export default function ImportStatements() {
             <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[80vh] overflow-hidden">
               <div className="p-6 border-b border-gray-100 flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Transações Processadas - {selectedFile.name}
+                  Processed Transactions - {selectedFile.name}
                 </h3>
                 <button
                   onClick={() => setShowPreview(false)}
@@ -467,14 +467,14 @@ export default function ImportStatements() {
                           <span className={`text-lg font-bold ${
                             transaction.type === 'income' ? 'text-green-600' : 'text-red-600'
                           }`}>
-                            {transaction.type === 'income' ? '+' : '-'}R$ {Math.abs(transaction.amount).toLocaleString('pt-BR')}
+                            {transaction.type === 'income' ? '+' : '-'}US$ {Math.abs(transaction.amount).toLocaleString('en-US')}
                           </span>
                         </div>
                         
                         <div className="flex items-center space-x-4 text-sm text-gray-500">
                           <span className="flex items-center space-x-1">
                             <Calendar className="w-4 h-4" />
-                            <span>{new Date(transaction.date).toLocaleDateString('pt-BR')}</span>
+                            <span>{new Date(transaction.date).toLocaleDateString('en-US')}</span>
                           </span>
                           
                           <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs">
@@ -488,7 +488,7 @@ export default function ImportStatements() {
                               ? 'bg-yellow-100 text-yellow-800'
                               : 'bg-red-100 text-red-800'
                           }`}>
-                            {transaction.confidence}% confiança
+                            {transaction.confidence}% confidence
                           </span>
                         </div>
                       </div>
@@ -498,8 +498,8 @@ export default function ImportStatements() {
                 
                 <div className="mt-6 p-4 bg-blue-50 rounded-lg">
                   <p className="text-sm text-blue-800">
-                    <strong>Nota:</strong> As transações mostradas são exemplos simulados. 
-                    Em um ambiente real, estas seriam as transações extraídas e categorizadas automaticamente do seu arquivo.
+                    <strong>Note:</strong> The transactions shown are simulated examples. 
+                    In a real environment, these would be the transactions extracted and automatically categorized from your file.
                   </p>
                 </div>
               </div>
@@ -509,10 +509,10 @@ export default function ImportStatements() {
                   onClick={() => setShowPreview(false)}
                   className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 >
-                  Fechar
+                  Close
                 </button>
                 <button className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
-                  Confirmar Importação
+                  Confirm Import
                 </button>
               </div>
             </div>

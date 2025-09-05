@@ -2,14 +2,10 @@
 
 import React, { useState, useMemo } from 'react';
 import Layout from '../../components/Layout';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend } from 'recharts';
 import { Search, Filter, Plus, TrendingUp, TrendingDown, DollarSign, Target, Calendar, AlertTriangle, CheckCircle } from 'lucide-react';
 import { categories, transactions,  getExpensesByCategory } from '@/data/mockData';
 import { Button } from '@/components/ui/button';
-
-type FilterType = 'all' | 'income' | 'expense';
-type SortType = 'date' | 'amount' | 'category';
-type PeriodType = 'week' | 'month' | 'year';
 
 // Cores para gráficos com tema marrom queimado
 const BROWN_COLORS = [
@@ -79,7 +75,7 @@ export default function Categories() {
     const monthlyData: { [key: string]: { [category: string]: number } } = {};
     
     filteredTransactions.forEach(transaction => {
-      const month = new Date(transaction.date).toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' });
+      const month = new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
       if (!monthlyData[month]) monthlyData[month] = {};
       if (!monthlyData[month][transaction.category]) monthlyData[month][transaction.category] = 0;
       monthlyData[month][transaction.category] += Math.abs(transaction.amount);
@@ -92,28 +88,26 @@ export default function Categories() {
   }, [filteredTransactions]);
 
   const totalExpenses = categoryExpenses.reduce((sum, cat) => sum + cat.amount, 0);
-  const averagePerCategory = totalExpenses / categoryExpenses.length || 0;
-  const topCategory = categoryExpenses[0];
 
   const COLORS = ['#FFD700', '#FFA500', '#FF8C00', '#FF6347', '#DAA520', '#B8860B', '#CD853F', '#D2691E', '#DDD'];
 
   return (
-    <Layout>
+    <Layout title="Categories">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Controle de Gastos</h1>
-            <p className="text-gray-600 mt-1">Gerencie seus gastos por categoria e acompanhe seu orçamento</p>
+            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Expense Control</h1>
+            <p className="text-gray-600 mt-1">Manage your expenses by category and track your budget</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button className="bg-brown-burned text-white hover:bg-brown-burned/90">
               <Plus className="w-4 h-4 mr-2" />
-              Novo Gasto
+              New Expense
             </Button>
             <Button variant="outline" className="border-brown-burned text-brown-burned hover:bg-brown-burned hover:text-white">
               <Target className="w-4 h-4 mr-2" />
-              Definir Meta
+              Set Goal
             </Button>
           </div>
         </div>
@@ -127,9 +121,9 @@ export default function Categories() {
                 onChange={(e) => setSelectedPeriod(e.target.value)}
                 className="border-brown-burned rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
-                <option value="week">Esta semana</option>
-                <option value="month">Este mês</option>
-                <option value="year">Este ano</option>
+                <option value="week">This week</option>
+                <option value="month">This month</option>
+                <option value="year">This year</option>
               </select>
             </div>
             <div className="flex items-center space-x-2">
@@ -139,7 +133,7 @@ export default function Categories() {
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 className="border-brown-burned rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white font-semibold text-gray-700"
               >
-                <option value="all">Todas as categorias</option>
+                <option value="all">All categories</option>
                 {categories.filter(cat => cat.name !== 'Salário' && cat.name !== 'Freelance').map(category => (
                   <option key={category.id} value={category.name}>{category.name}</option>
                 ))}
@@ -150,7 +144,7 @@ export default function Categories() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Buscar gastos..."
+              placeholder="Search expenses..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-400 bg-white"
@@ -163,12 +157,12 @@ export default function Categories() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Total de Gastos</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Total Expenses</p>
                 <p className="text-3xl font-bold text-brown-burned">
-                  R$ {totalExpenses.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                  US$ {totalExpenses.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </p>
                 <div className="mt-2 flex items-center text-sm">
-                  <span className="text-brown-burned font-medium">Este mês</span>
+                  <span className="text-brown-burned font-medium">This month</span>
                 </div>
               </div>
               <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
@@ -180,10 +174,10 @@ export default function Categories() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Orçamento Total</p>
-                <p className="text-3xl font-bold text-brown-burned">R$ 4.900,00</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Total Budget</p>
+                <p className="text-3xl font-bold text-brown-burned">US$ 4,900.00</p>
                 <div className="mt-2 flex items-center text-sm">
-                  <span className="text-brown-burned font-medium">Definido</span>
+                  <span className="text-brown-burned font-medium">Set</span>
                 </div>
               </div>
               <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
@@ -195,10 +189,10 @@ export default function Categories() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Economia</p>
-                <p className="text-3xl font-bold text-green-600">R$ 2.440,00</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Savings</p>
+                <p className="text-3xl font-bold text-green-600">US$ 2,440.00</p>
                 <div className="mt-2 flex items-center text-sm">
-                  <span className="text-green-600 font-medium">Restante</span>
+                  <span className="text-green-600 font-medium">Remaining</span>
                 </div>
               </div>
               <div className="w-12 h-12 bg-green-500 rounded-xl shadow-lg flex items-center justify-center">
@@ -210,10 +204,10 @@ export default function Categories() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Alertas</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Alerts</p>
                 <p className="text-3xl font-bold text-red-600">3</p>
                 <div className="mt-2 flex items-center text-sm">
-                  <span className="text-red-600 font-medium">Categorias</span>
+                  <span className="text-red-600 font-medium">Categories</span>
                 </div>
               </div>
               <div className="w-12 h-12 bg-red-500 rounded-xl shadow-lg flex items-center justify-center">
@@ -229,7 +223,7 @@ export default function Categories() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent">
-                Gastos por Categoria
+                Expenses by Category
               </h3>
               <div className="flex items-center space-x-2">
                 <select 
@@ -237,8 +231,8 @@ export default function Categories() {
                   onChange={(e) => setSortBy(e.target.value)}
                   className="text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-yellow-500 bg-white text-gray-700"
                 >
-                  <option value="amount">Por valor</option>
-                  <option value="category">Por nome</option>
+                  <option value="amount">By amount</option>
+                  <option value="category">By name</option>
                 </select>
                 <button 
                   onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
@@ -263,11 +257,11 @@ export default function Categories() {
                   <YAxis 
                     tick={{ fontSize: 12 }}
                     axisLine={{ stroke: '#e5e7eb' }}
-                    tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                    tickFormatter={(value) => `US$ ${(value / 1000).toFixed(0)}k`}
                   />
                   <Tooltip 
-                    formatter={(value) => [`R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, 'Gastos']}
-                    labelFormatter={(label) => `Categoria: ${label}`}
+                    formatter={(value) => [`US$ ${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 'Expenses']}
+                    labelFormatter={(label) => `Category: ${label}`}
                     contentStyle={{
                       backgroundColor: 'white',
                       border: '1px solid #e5e7eb',
@@ -289,8 +283,8 @@ export default function Categories() {
           {/* Gráfico de Pizza - Distribuição de Gastos */}
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">
-              Distribuição de Gastos
-            </h3>
+               Expense Distribution
+             </h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -311,8 +305,8 @@ export default function Categories() {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value) => [`R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, 'Gastos']}
-                    labelFormatter={() => ''}
+                     formatter={(value) => [`US$ ${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 'Expenses']}
+                     labelFormatter={() => ''}
                     contentStyle={{
                       backgroundColor: 'white',
                       border: '1px solid #e5e7eb',
@@ -330,8 +324,8 @@ export default function Categories() {
         {monthlyTrends.length > 0 && (
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent mb-4">
-              Evolução de Gastos Mensais
-            </h3>
+               Monthly Expense Evolution
+             </h3>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={monthlyTrends} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -344,14 +338,14 @@ export default function Categories() {
                   <YAxis 
                     tick={{ fontSize: 12 }}
                     axisLine={{ stroke: '#e5e7eb' }}
-                    tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                    tickFormatter={(value) => `US$ ${(value / 1000).toFixed(0)}k`}
                   />
                   <Tooltip 
                     formatter={(value, name) => {
-                      const formattedValue = `R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-                      return [formattedValue, name === 'budget' ? 'Meta Orçamento' : 'Gastos'];
+                      const formattedValue = `US$ ${Number(value).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+                      return [formattedValue, name === 'budget' ? 'Budget Goal' : 'Expenses'];
                     }}
-                    labelFormatter={(label) => `Mês: ${label}`}
+                    labelFormatter={(label) => `Month: ${label}`}
                     contentStyle={{
                       backgroundColor: 'white',
                       border: '1px solid #e5e7eb',
@@ -383,7 +377,7 @@ export default function Categories() {
           <div className="p-6 border-b border-gray-200">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <Target className="w-5 h-5 text-brown-burned" />
-              Controle de Gastos por Categoria
+              Expense Control by Category
             </h3>
           </div>
           <div className="divide-y divide-gray-100">
@@ -405,7 +399,7 @@ export default function Categories() {
                         style={{ backgroundColor: category.color }}
                       ></div>
                       <h4 className="font-semibold text-brown-burned">{category.category}</h4>
-                      <span className="text-sm text-brown-burned/60">({transactionsInCategory.length} transações)</span>
+                      <span className="text-sm text-brown-burned/60">({transactionsInCategory.length} transactions)</span>
                       {isOverBudget && (
                         <AlertTriangle className="w-4 h-4 text-red-500" />
                       )}
@@ -418,7 +412,7 @@ export default function Categories() {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-brown-burned">
-                        R$ {category.amount.toLocaleString('pt-BR')}
+                        US$ {category.amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </p>
                       <p className="text-sm text-brown-burned/60">{category.percentage}% do total</p>
                       <p className={`text-xs font-medium ${
@@ -426,8 +420,8 @@ export default function Categories() {
                         remaining < budget * 0.2 ? 'text-yellow-600' : 'text-green-600'
                       }`}>
                         {isOverBudget ? 
-                          `Excedeu R$ ${Math.abs(remaining).toLocaleString('pt-BR')}` :
-                          `Restam R$ ${remaining.toLocaleString('pt-BR')}`
+                          `Exceeded US$ ${Math.abs(remaining).toLocaleString('en-US', { minimumFractionDigits: 2 })}` :
+                          `Remaining US$ ${remaining.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
                         }
                       </p>
                     </div>
@@ -454,17 +448,17 @@ export default function Categories() {
                         <span className="text-gray-600">{transaction.description}</span>
                         <div className="text-right">
                           <span className="font-medium text-brown-burned">
-                            R$ {Math.abs(transaction.amount).toLocaleString('pt-BR')}
+                            US$ {Math.abs(transaction.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                           </span>
                           <span className="text-gray-500 ml-2">
-                            {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                            {new Date(transaction.date).toLocaleDateString('en-US')}
                           </span>
                         </div>
                       </div>
                     ))}
                     {transactionsInCategory.length > 3 && (
                       <p className="text-xs text-gray-500 mt-2">
-                        +{transactionsInCategory.length - 3} transações adicionais
+                        +{transactionsInCategory.length - 3} additional transactions
                       </p>
                     )}
                   </div>

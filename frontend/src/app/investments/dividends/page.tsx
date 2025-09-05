@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { dividends, stocks, getDividendsByStock, monthlyDividends } from '@/data/mockData';
-import { Dividend } from '@/data/mockData';
+import { dividends, stocks, getDividendsByStock } from '@/data/mockData';
 import { Plus, DollarSign, TrendingUp, Calendar, BarChart3 } from 'lucide-react';
 
 export default function DividendsPage() {
@@ -22,7 +20,7 @@ export default function DividendsPage() {
 
   const handleAddDividend = (e: React.FormEvent) => {
     e.preventDefault();
-    // Em uma aplicação real, aqui seria feita a chamada para a API
+    // In a real application, this would be an API call
     console.log('Novo provento:', newDividend);
     setShowAddForm(false);
     setNewDividend({
@@ -39,14 +37,14 @@ export default function DividendsPage() {
     : getDividendsByStock(selectedStock);
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'USD'
     }).format(value);
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('pt-BR');
+    return new Date(dateString).toLocaleDateString('en-US');
   };
 
   const getStockName = (stockId: string) => {
@@ -73,20 +71,20 @@ export default function DividendsPage() {
     : 0;
 
   return (
-    <Layout>
+    <Layout title="Dividends">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Proventos</h1>
-            <p className="text-gray-600 mt-1">Acompanhe dividendos e JCP recebidos</p>
+            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Incomes</h1>
+            <p className="text-gray-600 mt-1">Track dividends and JCP received</p>
           </div>
           <Button 
             onClick={() => setShowAddForm(!showAddForm)}
             className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
-            Adicionar Provento
+            Add Income
           </Button>
         </div>
 
@@ -96,22 +94,22 @@ export default function DividendsPage() {
             <div className="p-6 border-bottom-brown-burned">
               <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
                 <Plus className="w-5 h-5 text-brown-burned" />
-                Novo Provento
+                Add Income
               </h3>
             </div>
             <div className="p-6 pt-0">
             <form onSubmit={handleAddDividend} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ação</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Stock</label>
                 <select 
                   value={newDividend.stockId}
                   onChange={(e) => setNewDividend({...newDividend, stockId: e.target.value})}
                   className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-brown-burned focus:border-transparent"
                   required
                 >
-                  <option value="">Selecione uma ação</option>
+                  <option value="">Select a stock</option>
                   {stocks.map(stock => (
-                    <option key={stock.id} value={stock.id}>{stock.symbol}</option>
+                    <option key={stock.id} value={stock.id}>{stock.ticker}</option>
                   ))}
                 </select>
               </div>
@@ -127,7 +125,7 @@ export default function DividendsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Valor (R$)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Amount (US$)</label>
                 <input 
                   type="number"
                   step="0.01"
@@ -183,7 +181,7 @@ export default function DividendsPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Total Recebido</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Total Received</p>
                 <p className="text-3xl font-bold text-brown-burned">{formatCurrency(totalDividends)}</p>
               </div>
               <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
@@ -207,7 +205,7 @@ export default function DividendsPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-base font-semibold text-gray-600 mb-1">Média Mensal</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Monthly Average</p>
                 <p className="text-3xl font-bold text-brown-burned">{formatCurrency(monthlyAverage)}</p>
               </div>
               <div className="w-12 h-12 bg-brown-burned-grad rounded-xl shadow-lg flex items-center justify-center">
@@ -217,23 +215,25 @@ export default function DividendsPage() {
           </div>
         </div>
 
-        {/* Filter */}
-        <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
-          <div className="p-6 border-bottom-brown-burned">
+        <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 flex items-center justify-between">
+          {/* Título */}
+          <div className="p-6">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <Calendar className="w-5 h-5 text-brown-burned" />
-              Filtros
+              Filters
             </h3>
           </div>
-          <div className="p-6 pt-0">
+
+          {/* Filtro */}
+          <div className="p-6 flex items-center">
             <div className="flex items-center gap-4">
-              <label className="text-sm font-medium text-gray-700">Filtrar por ação:</label>
+              <label className="text-base font-medium text-gray-700">Filter by stock:</label>
               <select 
                 value={selectedStock}
                 onChange={(e) => setSelectedStock(e.target.value)}
                 className="p-2 border border-brown-burned text-brown-burned rounded-lg focus:ring-2 focus:ring-brown-burned focus:border-transparent"
               >
-                <option value="all">Todas as ações</option>
+                <option value="all">All stocks</option>
                 {stocks.map(stock => (
                   <option key={stock.id} value={stock.id}>{stock.ticker}</option>
                 ))}
@@ -247,7 +247,7 @@ export default function DividendsPage() {
           <div className="p-6 border-bottom-brown-burned">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-brown-burned" />
-              Histórico de Proventos
+              Dividend History
             </h3>
           </div>
           
@@ -256,11 +256,11 @@ export default function DividendsPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Ação</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-700">Tipo</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Valor</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Data Ex-Div</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-700">Data Pagamento</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Stock</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-700">Type</th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-700">Amount</th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-700">Ex-Div Date</th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-700">Payment Date</th>
                   <th className="text-center py-3 px-4 font-medium text-gray-700">Status</th>
                 </tr>
               </thead>
@@ -275,7 +275,7 @@ export default function DividendsPage() {
                         <td className="py-3 px-2 font-medium text-gray-600">{getStockName(dividend.stockId)}</td>
                         <td className="py-3 px-2">
                           <Badge className={dividend.type === 'dividend' ? 'bg-brown-burned' : 'bg-gray-500'} variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
-                            {dividend.type === 'dividend' ? 'Dividendo' : 'JCP'}
+                            {dividend.type === 'dividend' ? 'Dividend' : 'JCP'}
                           </Badge>
                         </td>
                         <td className="py-3 px-2 text-right font-medium text-brown-burned">
@@ -285,7 +285,7 @@ export default function DividendsPage() {
                         <td className="py-3 px-2 text-right text-gray-600">{formatDate(dividend.paymentDate)}</td>
                         <td className="py-3 px-2 text-center">
                           <Badge className={isPaid ? 'bg-brown-burned' : ''} variant={isPaid ? 'default' : 'outline'}>
-                            {isPaid ? 'Pago' : 'Pendente'}
+                            {isPaid ? 'Paid' : 'Pending'}
                           </Badge>
                         </td>
                       </tr>

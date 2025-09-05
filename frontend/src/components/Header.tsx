@@ -25,9 +25,9 @@ export default function Header({ onMenuClick }: HeaderProps) {
   const [showNotifications, setShowNotifications] = useState(false);
 
   const notifications = [
-    { id: 1, message: 'Novo gasto de R$ 120,00 em Alimentação', time: '2 min atrás' },
-    { id: 2, message: 'Meta mensal de gastos atingida em 80%', time: '1 hora atrás' },
-    { id: 3, message: 'Fatura do cartão disponível', time: '3 horas atrás' },
+    { id: 1, message: 'New expense of US$ 120.00 in Food', time: '2 min ago' },
+    { id: 2, message: 'Monthly expense goal reached at 80%', time: '1 hour ago' },
+    { id: 3, message: 'Credit card statement available', time: '3 hours ago' },
   ];
 
   return (
@@ -57,7 +57,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
         </Link>
 
         <Link href="/import" className="flex items-center gap-2 font-semibold whitespace-nowrap">
-          <Upload className="w-5 h-5" /> Importar Extratos
+          <Upload className="w-5 h-5" /> Import Statements
         </Link>
 
         <Link href="/investments" className="flex items-center gap-2 font-semibold">

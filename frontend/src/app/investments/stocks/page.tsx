@@ -2,11 +2,9 @@
 
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { stocks } from '@/data/mockData';
-import { Stock } from '@/data/mockData';
 import { Plus, TrendingUp, TrendingDown, DollarSign, BarChart3 } from 'lucide-react';
 
 export default function StocksPage() {
@@ -21,8 +19,8 @@ export default function StocksPage() {
 
   const handleAddStock = (e: React.FormEvent) => {
     e.preventDefault();
-    // Em uma aplicação real, aqui seria feita a chamada para a API
-    console.log('Nova ação:', newStock);
+    // In a real application, this would be an API call
+        console.log('New stock:', newStock);
     setShowAddForm(false);
     setNewStock({
       symbol: '',
@@ -34,9 +32,9 @@ export default function StocksPage() {
   };
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'USD'
     }).format(value);
   };
 
@@ -44,7 +42,7 @@ export default function StocksPage() {
     return `${value >= 0 ? '+' : ''}${value.toFixed(2)}%`;
   };
 
-  // Calcular estatísticas
+  // Calculate statistics
   const totalInvested = stocks.reduce((sum, stock) => sum + (stock.quantity * stock.purchasePrice), 0);
   const totalCurrentValue = stocks.reduce((sum, stock) => {
     return sum + (stock.quantity * stock.currentPrice);
@@ -53,20 +51,20 @@ export default function StocksPage() {
   const totalGainLossPercentage = totalInvested > 0 ? (totalGainLoss / totalInvested) * 100 : 0;
 
   return (
-    <Layout>
+    <Layout title="Stocks">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Ações</h1>
-            <p className="text-gray-600 mt-1">Gerencie sua carteira de ações</p>
+            <h1 className="text-3xl font-bold bg-brown-burned bg-clip-text text-transparent">Stocks</h1>
+              <p className="text-gray-600 mt-1">Manage your stock portfolio</p>
           </div>
           <Button 
             onClick={() => setShowAddForm(!showAddForm)}
             className="bg-brown-burned text-white hover:bg-brown-burned/90 transition-colors flex items-center gap-2"
           >
             <Plus className="w-4 h-4" />
-            Adicionar Ação
+            Add Stock
           </Button>
         </div>
 
@@ -76,13 +74,13 @@ export default function StocksPage() {
             <div className="p-6 border-bottom-brown-burned">
               <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
                 <Plus className="w-5 h-5 text-brown-burned" />
-                Nova Ação
+                New Stock
               </h3>
             </div>
             <div className="p-6 pt-0">
             <form onSubmit={handleAddStock} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Símbolo</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Symbol</label>
                 <input 
                   type="text"
                   value={newStock.symbol}
@@ -115,7 +113,7 @@ export default function StocksPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Preço Médio (R$)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Average Price (US$)</label>
                 <input 
                   type="number"
                   step="0.01"
@@ -132,7 +130,7 @@ export default function StocksPage() {
                   value={newStock.sector}
                   onChange={(e) => setNewStock({...newStock, sector: e.target.value})}
                   className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-brown-burned focus:border-transparent"
-                  placeholder="Petróleo e Gás"
+                  placeholder="Oil and Gas"
                   required
                 />
               </div>
@@ -163,7 +161,7 @@ export default function StocksPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 mb-1">Valor Investido</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Amount Invested</p>
                 <p className="text-2xl font-bold text-brown-burned">
                   {formatCurrency(totalInvested)}
                 </p>
@@ -177,7 +175,7 @@ export default function StocksPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 mb-1">Valor Atual</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Current Value</p>
                 <p className="text-2xl font-bold text-brown-burned">
                   {formatCurrency(totalCurrentValue)}
                 </p>
@@ -191,7 +189,7 @@ export default function StocksPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 mb-1">Ganho/Perda</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Gain/Loss</p>
                 <p className="text-2xl font-bold text-brown-burned">
                   {formatCurrency(totalGainLoss)}
                 </p>
@@ -209,7 +207,7 @@ export default function StocksPage() {
           <div className="bg-white p-6 rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-semibold text-gray-600 mb-1">Rentabilidade</p>
+                <p className="text-sm font-semibold text-gray-600 mb-1">Return</p>
                 <p className="text-2xl font-bold text-brown-burned">
                   {formatPercentage(totalGainLossPercentage)}
                 </p>
@@ -231,7 +229,7 @@ export default function StocksPage() {
           <div className="p-6 border-bottom-brown-burned">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-brown-burned" />
-              Carteira de Ações
+              Stock Portfolio
             </h3>
           </div>
           
@@ -240,13 +238,13 @@ export default function StocksPage() {
             <table className="w-full mt-1">
               <thead className='border-b'>
                 <tr>
-                  <th className="text-left py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Ação</th>
+                  <th className="text-left py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Stock</th>
                   <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Qtd</th>
-                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Preço Médio</th>
-                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Preço Atual</th>
-                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Valor Investido</th>
-                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Valor Atual</th>
-                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Ganho/Perda</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Average Price</th>
+                    <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Current Price</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Amount Invested</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Current Value</th>
+                  <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">Gain/Loss</th>
                   <th className="text-right py-3 px-4 font-medium font-semibold text-gray-600 uppercase tracking-wider text-xs">%</th>
                 </tr>
               </thead>
@@ -324,7 +322,7 @@ export default function StocksPage() {
                       <div>
                         <h4 className="font-medium text-brown-burned">{stock.ticker}</h4>
                         <p className="text-sm text-brown-burned/70">{stock.companyName}</p>
-                        <Badge variant="outline" className="text-xs">{stock.quantity} ações</Badge>
+                        <Badge variant="outline" className="text-xs">{stock.quantity} shares</Badge>
                       </div>
                     </div>
                     <div className="text-right">
@@ -336,11 +334,11 @@ export default function StocksPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-sm mt-3">
                     <div>
-                      <span className="text-brown-burned/70">Preço Médio:</span>
+                      <span className="text-brown-burned/70">Average Price:</span>
                       <p className="font-medium text-brown-burned">{formatCurrency(stock.purchasePrice)}</p>
                     </div>
                     <div>
-                      <span className="text-brown-burned/70">Preço Atual:</span>
+                      <span className="text-brown-burned/70">Current Price:</span>
                       <p className="font-medium text-brown-burned">{formatCurrency(currentPrice)}</p>
                     </div>
                     <div>
@@ -359,7 +357,7 @@ export default function StocksPage() {
 
           {stocks.length === 0 && (
             <div className="text-center py-8 text-gray-500">
-              Nenhuma ação encontrada. Adicione sua primeira ação para começar.
+              No stocks found. Add your first stock to get started.
             </div>
           )}
         </div>

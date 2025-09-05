@@ -21,9 +21,9 @@ export default function InvestmentsPage() {
   const summary = getInvestmentSummary();
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'USD'
     }).format(value);
   };
 
@@ -32,7 +32,7 @@ export default function InvestmentsPage() {
   };
 
   return (
-    <Layout>
+    <Layout title="Investments">
       <div className="space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
@@ -130,9 +130,9 @@ export default function InvestmentsPage() {
           </div>
       </div>
 
-        {/* Gráficos e Tabelas */}
+        {/* Charts and Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Carteira de Ações */}
+          {/* Stock Portfolio */}
           <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 h-[500px] flex flex-col">
             <div className="p-6 border-bottom-brown-burned flex-shrink-0 mb-3">
               <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
@@ -159,7 +159,7 @@ export default function InvestmentsPage() {
                       </div>
                       <p className="text-sm text-gray-600">{stock.companyName}</p>
                       <p className="text-xs text-gray-500">
-                        {stock.quantity} ações • Preço médio: {formatCurrency(stock.purchasePrice)}
+                        {stock.quantity} shares • Average price: {formatCurrency(stock.purchasePrice)}
                       </p>
                     </div>
                     <div className="text-right">
@@ -200,11 +200,11 @@ export default function InvestmentsPage() {
                    <YAxis 
                      tick={{ fontSize: 12 }}
                      axisLine={{ stroke: '#e5e7eb' }}
-                     tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                     tickFormatter={(value) => `US$ ${(value / 1000).toFixed(0)}k`}
                    />
                    <Tooltip 
                      formatter={(value: number) => [formatCurrency(value), 'Dividendos']}
-                     labelFormatter={(label) => `Mês: ${label}`}
+                     labelFormatter={(label) => `Month: ${label}`}
                      contentStyle={{
                        backgroundColor: 'white',
                        border: '1px solid #e5e7eb',
@@ -225,7 +225,7 @@ export default function InvestmentsPage() {
          </div>
       </div>
 
-      {/* Histórico de Dividendos */}
+      {/* Dividend History */}
       <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
         <div className="p-6 border-bottom-brown-burned">
           <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
@@ -258,12 +258,12 @@ export default function InvestmentsPage() {
                         {formatCurrency(totalReceived)}
                       </td>
                       <td className="py-3 px-4 text-gray-600">
-                        {new Date(dividend.paymentDate).toLocaleDateString('pt-BR')}
+                        {new Date(dividend.paymentDate).toLocaleDateString('en-US')}
                       </td>
                       <td className="py-3 px-4">
                         <Badge className='bg-brown-burned' variant={dividend.type === 'dividend' ? 'default' : 'secondary'}>
                           {dividend.type === 'dividend' ? 'Dividend' : 
-                           dividend.type === 'jscp' ? 'JCP' : 'Bonificação'}
+                           dividend.type === 'jscp' ? 'JCP' : 'Bonus'}
                         </Badge>
                       </td>
                     </tr>

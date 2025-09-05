@@ -1,4 +1,4 @@
-// Dados mockados para o aplicativo de finanças pessoais
+// Mock data for personal finance application
 
 export interface Transaction {
   id: string;
@@ -23,7 +23,7 @@ export interface ExpenseGoal {
   categoryId: string;
   monthlyLimit: number;
   currentSpent: number;
-  alertThreshold: number; // Porcentagem para alerta (ex: 80)
+  alertThreshold: number; // Percentage for alert (e.g.: 80)
 }
 
 export interface MonthlyExpenseData {
@@ -46,23 +46,23 @@ export interface CategoryExpense {
   color: string;
 }
 
-// Categorias disponíveis com orçamentos
+// Available categories with budgets
 export const categories: Category[] = [
-  { id: '1', name: 'Alimentação', color: '#b3854d', icon: 'UtensilsCrossed', budget: 800 },
-  { id: '2', name: 'Transporte', color: '#8b6914', icon: 'Car', budget: 400 },
-  { id: '3', name: 'Moradia', color: '#a0522d', icon: 'Home', budget: 1500 },
-  { id: '4', name: 'Saúde', color: '#cd853f', icon: 'Heart', budget: 300 },
-  { id: '5', name: 'Educação', color: '#daa520', icon: 'GraduationCap', budget: 200 },
-  { id: '6', name: 'Entretenimento', color: '#d2691e', icon: 'Gamepad2', budget: 250 },
-  { id: '7', name: 'Compras', color: '#bc8f8f', icon: 'ShoppingBag', budget: 300 },
-  { id: '8', name: 'Investimentos', color: '#8b4513', icon: 'TrendingUp', budget: 1000 },
-  { id: '9', name: 'Salário', color: '#32CD32', icon: 'Banknote' },
+  { id: '1', name: 'Food', color: '#b3854d', icon: 'UtensilsCrossed', budget: 800 },
+  { id: '2', name: 'Transportation', color: '#8b6914', icon: 'Car', budget: 400 },
+  { id: '3', name: 'Housing', color: '#a0522d', icon: 'Home', budget: 1500 },
+  { id: '4', name: 'Health', color: '#cd853f', icon: 'Heart', budget: 300 },
+  { id: '5', name: 'Education', color: '#daa520', icon: 'GraduationCap', budget: 200 },
+  { id: '6', name: 'Entertainment', color: '#d2691e', icon: 'Gamepad2', budget: 250 },
+  { id: '7', name: 'Shopping', color: '#bc8f8f', icon: 'ShoppingBag', budget: 300 },
+  { id: '8', name: 'Investments', color: '#8b4513', icon: 'TrendingUp', budget: 1000 },
+  { id: '9', name: 'Salary', color: '#32CD32', icon: 'Banknote' },
   { id: '10', name: 'Freelance', color: '#228B22', icon: 'Briefcase' },
-  { id: '11', name: 'Serviços', color: '#9b7653', icon: 'Settings', budget: 150 },
-  { id: '12', name: 'Impostos', color: '#8b7355', icon: 'FileText', budget: 500 },
+  { id: '11', name: 'Services', color: '#9b7653', icon: 'Settings', budget: 150 },
+  { id: '12', name: 'Taxes', color: '#8b7355', icon: 'FileText', budget: 500 },
 ];
 
-// Metas de gastos por categoria
+// Expense goals by category
 export const expenseGoals: ExpenseGoal[] = [
   { id: '1', categoryId: '1', monthlyLimit: 800, currentSpent: 650, alertThreshold: 80 },
   { id: '2', categoryId: '2', monthlyLimit: 400, currentSpent: 320, alertThreshold: 85 },
@@ -74,63 +74,63 @@ export const expenseGoals: ExpenseGoal[] = [
   { id: '8', categoryId: '11', monthlyLimit: 150, currentSpent: 95, alertThreshold: 75 },
 ];
 
-// Transações mockadas
+// Mock transactions
 export const transactions: Transaction[] = [
-  // Janeiro 2024
-  { id: '1', date: '2024-01-01', description: 'Salário', amount: 5500, category: 'Salário', type: 'income', account: 'Conta Corrente' },
-  { id: '2', date: '2024-01-02', description: 'Supermercado Extra', amount: -320, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '3', date: '2024-01-03', description: 'Uber', amount: -45, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
-  { id: '4', date: '2024-01-05', description: 'Aluguel', amount: -1200, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
-  { id: '5', date: '2024-01-07', description: 'Netflix', amount: -29.90, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '6', date: '2024-01-10', description: 'Freelance Design', amount: 800, category: 'Freelance', type: 'income', account: 'Conta Corrente' },
-  { id: '7', date: '2024-01-12', description: 'Farmácia', amount: -85, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
-  { id: '8', date: '2024-01-15', description: 'Restaurante', amount: -120, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '9', date: '2024-01-18', description: 'Gasolina', amount: -180, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
-  { id: '10', date: '2024-01-20', description: 'Curso Online', amount: -199, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '31', date: '2024-01-04', description: 'Padaria do João', amount: -25.80, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
-  { id: '32', date: '2024-01-06', description: 'Conta de luz', amount: -85.50, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
-  { id: '33', date: '2024-01-08', description: 'Spotify', amount: -16.90, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '34', date: '2024-01-11', description: 'Lanchonete', amount: -35.50, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
-  { id: '35', date: '2024-01-13', description: 'Internet', amount: -89.90, category: 'Serviços', type: 'expense', account: 'Conta Corrente' },
-  { id: '36', date: '2024-01-16', description: 'Livro técnico', amount: -65.00, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '37', date: '2024-01-19', description: 'Ações PETR4', amount: -500.00, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
-  { id: '38', date: '2024-01-22', description: 'Tênis', amount: -180.00, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '39', date: '2024-01-24', description: 'IPTU', amount: -180.00, category: 'Impostos', type: 'expense', account: 'Conta Corrente' },
-  { id: '40', date: '2024-01-26', description: 'Dentista', amount: -200.00, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
+  // January 2024
+  { id: '1', date: '2024-01-01', description: 'Salary', amount: 5500, category: 'Salary', type: 'income', account: 'Checking Account' },
+  { id: '2', date: '2024-01-02', description: 'Extra Supermarket', amount: -320, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '3', date: '2024-01-03', description: 'Uber', amount: -45, category: 'Transportation', type: 'expense', account: 'Debit Card' },
+  { id: '4', date: '2024-01-05', description: 'Rent', amount: -1200, category: 'Housing', type: 'expense', account: 'Checking Account' },
+  { id: '5', date: '2024-01-07', description: 'Netflix', amount: -29.90, category: 'Entertainment', type: 'expense', account: 'Credit Card' },
+  { id: '6', date: '2024-01-10', description: 'Freelance Design', amount: 800, category: 'Freelance', type: 'income', account: 'Checking Account' },
+  { id: '7', date: '2024-01-12', description: 'Pharmacy', amount: -85, category: 'Health', type: 'expense', account: 'Debit Card' },
+  { id: '8', date: '2024-01-15', description: 'Restaurant', amount: -120, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '9', date: '2024-01-18', description: 'Gas', amount: -180, category: 'Transportation', type: 'expense', account: 'Debit Card' },
+  { id: '10', date: '2024-01-20', description: 'Online Course', amount: -199, category: 'Education', type: 'expense', account: 'Credit Card' },
+  { id: '31', date: '2024-01-04', description: 'João\'s Bakery', amount: -25.80, category: 'Food', type: 'expense', account: 'Debit Card' },
+  { id: '32', date: '2024-01-06', description: 'Electricity Bill', amount: -85.50, category: 'Housing', type: 'expense', account: 'Checking Account' },
+  { id: '33', date: '2024-01-08', description: 'Spotify', amount: -16.90, category: 'Entertainment', type: 'expense', account: 'Credit Card' },
+  { id: '34', date: '2024-01-11', description: 'Snack Bar', amount: -35.50, category: 'Food', type: 'expense', account: 'Debit Card' },
+  { id: '35', date: '2024-01-13', description: 'Internet', amount: -89.90, category: 'Services', type: 'expense', account: 'Checking Account' },
+  { id: '36', date: '2024-01-16', description: 'Technical Book', amount: -65.00, category: 'Education', type: 'expense', account: 'Credit Card' },
+  { id: '37', date: '2024-01-19', description: 'PETR4 Stocks', amount: -500.00, category: 'Investments', type: 'expense', account: 'Checking Account' },
+  { id: '38', date: '2024-01-22', description: 'Sneakers', amount: -180.00, category: 'Shopping', type: 'expense', account: 'Credit Card' },
+  { id: '39', date: '2024-01-24', description: 'Property Tax', amount: -180.00, category: 'Taxes', type: 'expense', account: 'Checking Account' },
+  { id: '40', date: '2024-01-26', description: 'Dentist', amount: -200.00, category: 'Health', type: 'expense', account: 'Debit Card' },
   
-  // Fevereiro 2024
-  { id: '11', date: '2024-02-01', description: 'Salário', amount: 5500, category: 'Salário', type: 'income', account: 'Conta Corrente' },
-  { id: '12', date: '2024-02-03', description: 'Supermercado', amount: -280, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '13', date: '2024-02-05', description: 'Aluguel', amount: -1200, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
-  { id: '14', date: '2024-02-08', description: 'Cinema', amount: -60, category: 'Entretenimento', type: 'expense', account: 'Cartão de Débito' },
-  { id: '15', date: '2024-02-12', description: 'Freelance', amount: 1200, category: 'Freelance', type: 'income', account: 'Conta Corrente' },
-  { id: '16', date: '2024-02-14', description: 'Jantar Romântico', amount: -150, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '17', date: '2024-02-16', description: 'Roupas', amount: -300, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '18', date: '2024-02-20', description: 'Investimento CDB', amount: -1000, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
-  { id: '19', date: '2024-02-22', description: 'Uber', amount: -35, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
-  { id: '20', date: '2024-02-25', description: 'Médico', amount: -200, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
-  { id: '41', date: '2024-02-02', description: 'Padaria Central', amount: -28.50, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
-  { id: '42', date: '2024-02-04', description: 'Conta de gás', amount: -75.30, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
-  { id: '43', date: '2024-02-06', description: 'Spotify Premium', amount: -16.90, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '44', date: '2024-02-09', description: 'Lanchonete do trabalho', amount: -42.80, category: 'Alimentação', type: 'expense', account: 'Cartão de Débito' },
-  { id: '45', date: '2024-02-11', description: 'Telefone fixo', amount: -65.90, category: 'Serviços', type: 'expense', account: 'Conta Corrente' },
-  { id: '46', date: '2024-02-13', description: 'Curso online Udemy', amount: -89.90, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '47', date: '2024-02-17', description: 'Ações VALE3', amount: -800.00, category: 'Investimentos', type: 'expense', account: 'Conta Corrente' },
-  { id: '48', date: '2024-02-19', description: 'Sapatos', amount: -250.00, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '49', date: '2024-02-21', description: 'IPVA', amount: -320.00, category: 'Impostos', type: 'expense', account: 'Conta Corrente' },
-  { id: '50', date: '2024-02-23', description: 'Fisioterapeuta', amount: -150.00, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
+  // February 2024
+  { id: '11', date: '2024-02-01', description: 'Salary', amount: 5500, category: 'Salary', type: 'income', account: 'Checking Account' },
+  { id: '12', date: '2024-02-03', description: 'Supermarket', amount: -280, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '13', date: '2024-02-05', description: 'Rent', amount: -1200, category: 'Housing', type: 'expense', account: 'Checking Account' },
+  { id: '14', date: '2024-02-08', description: 'Cinema', amount: -60, category: 'Entertainment', type: 'expense', account: 'Debit Card' },
+  { id: '15', date: '2024-02-12', description: 'Freelance', amount: 1200, category: 'Freelance', type: 'income', account: 'Checking Account' },
+  { id: '16', date: '2024-02-14', description: 'Romantic Dinner', amount: -150, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '17', date: '2024-02-16', description: 'Clothes', amount: -300, category: 'Shopping', type: 'expense', account: 'Credit Card' },
+  { id: '18', date: '2024-02-20', description: 'CDB Investment', amount: -1000, category: 'Investments', type: 'expense', account: 'Checking Account' },
+  { id: '19', date: '2024-02-22', description: 'Uber', amount: -35, category: 'Transportation', type: 'expense', account: 'Debit Card' },
+  { id: '20', date: '2024-02-25', description: 'Doctor', amount: -200, category: 'Health', type: 'expense', account: 'Debit Card' },
+  { id: '41', date: '2024-02-02', description: 'Central Bakery', amount: -28.50, category: 'Food', type: 'expense', account: 'Debit Card' },
+  { id: '42', date: '2024-02-04', description: 'Gas Bill', amount: -75.30, category: 'Housing', type: 'expense', account: 'Checking Account' },
+  { id: '43', date: '2024-02-06', description: 'Spotify Premium', amount: -16.90, category: 'Entertainment', type: 'expense', account: 'Credit Card' },
+  { id: '44', date: '2024-02-09', description: 'Work Cafeteria', amount: -42.80, category: 'Food', type: 'expense', account: 'Debit Card' },
+  { id: '45', date: '2024-02-11', description: 'Landline Phone', amount: -65.90, category: 'Services', type: 'expense', account: 'Checking Account' },
+  { id: '46', date: '2024-02-13', description: 'Udemy Online Course', amount: -89.90, category: 'Education', type: 'expense', account: 'Credit Card' },
+  { id: '47', date: '2024-02-17', description: 'VALE3 Stocks', amount: -800.00, category: 'Investments', type: 'expense', account: 'Checking Account' },
+  { id: '48', date: '2024-02-19', description: 'Shoes', amount: -250.00, category: 'Shopping', type: 'expense', account: 'Credit Card' },
+  { id: '49', date: '2024-02-21', description: 'Vehicle Tax', amount: -320.00, category: 'Taxes', type: 'expense', account: 'Checking Account' },
+  { id: '50', date: '2024-02-23', description: 'Physiotherapist', amount: -150.00, category: 'Health', type: 'expense', account: 'Debit Card' },
   
-  // Março 2024
-  { id: '21', date: '2024-03-01', description: 'Salário', amount: 5500, category: 'Salário', type: 'income', account: 'Conta Corrente' },
-  { id: '22', date: '2024-03-02', description: 'Supermercado', amount: -350, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '23', date: '2024-03-05', description: 'Aluguel', amount: -1200, category: 'Moradia', type: 'expense', account: 'Conta Corrente' },
-  { id: '24', date: '2024-03-08', description: 'Freelance', amount: 900, category: 'Freelance', type: 'income', account: 'Conta Corrente' },
-  { id: '25', date: '2024-03-10', description: 'Eletrônicos', amount: -800, category: 'Compras', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '26', date: '2024-03-12', description: 'Gasolina', amount: -200, category: 'Transporte', type: 'expense', account: 'Cartão de Débito' },
-  { id: '27', date: '2024-03-15', description: 'Restaurante', amount: -90, category: 'Alimentação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '28', date: '2024-03-18', description: 'Academia', amount: -80, category: 'Saúde', type: 'expense', account: 'Cartão de Débito' },
-  { id: '29', date: '2024-03-20', description: 'Livros', amount: -120, category: 'Educação', type: 'expense', account: 'Cartão de Crédito' },
-  { id: '30', date: '2024-03-25', description: 'Show', amount: -180, category: 'Entretenimento', type: 'expense', account: 'Cartão de Crédito' },
+  // March 2024
+  { id: '21', date: '2024-03-01', description: 'Salary', amount: 5500, category: 'Salary', type: 'income', account: 'Checking Account' },
+  { id: '22', date: '2024-03-02', description: 'Supermarket', amount: -350, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '23', date: '2024-03-05', description: 'Rent', amount: -1200, category: 'Housing', type: 'expense', account: 'Checking Account' },
+  { id: '24', date: '2024-03-08', description: 'Freelance', amount: 900, category: 'Freelance', type: 'income', account: 'Checking Account' },
+  { id: '25', date: '2024-03-10', description: 'Electronics', amount: -800, category: 'Shopping', type: 'expense', account: 'Credit Card' },
+  { id: '26', date: '2024-03-12', description: 'Gas', amount: -200, category: 'Transportation', type: 'expense', account: 'Debit Card' },
+  { id: '27', date: '2024-03-15', description: 'Restaurant', amount: -90, category: 'Food', type: 'expense', account: 'Credit Card' },
+  { id: '28', date: '2024-03-18', description: 'Gym', amount: -80, category: 'Health', type: 'expense', account: 'Debit Card' },
+  { id: '29', date: '2024-03-20', description: 'Books', amount: -120, category: 'Education', type: 'expense', account: 'Credit Card' },
+  { id: '30', date: '2024-03-25', description: 'Concert', amount: -180, category: 'Entertainment', type: 'expense', account: 'Credit Card' },
 ];
 
 // Dados mensais para gráfico de evolução
@@ -143,68 +143,68 @@ export const monthlyData: MonthlyData[] = [
   { month: 'Jun', income: 6500, expenses: 2900, balance: 3600 },
 ];
 
-// Dados mensais específicos para controle de gastos
+// Monthly data specific for expense control
 export const monthlyExpenseData: MonthlyExpenseData[] = [
   {
-    month: 'Janeiro 2024',
+    month: 'January 2024',
     totalExpenses: 2460,
     categoryBreakdown: {
-      'Alimentação': 275.80,
-      'Transporte': 155.50,
-      'Moradia': 1285.50,
-      'Saúde': 195.90,
-      'Educação': 164.90,
-      'Entretenimento': 74.90,
-      'Compras': 360.00,
-      'Investimentos': 500.00,
-      'Serviços': 89.90,
-      'Impostos': 180.00
+      'Food': 275.80,
+      'Transportation': 155.50,
+      'Housing': 1285.50,
+      'Health': 195.90,
+      'Education': 164.90,
+      'Entertainment': 74.90,
+      'Shopping': 360.00,
+      'Investments': 500.00,
+      'Services': 89.90,
+      'Taxes': 180.00
     }
   },
   {
-    month: 'Fevereiro 2024',
+    month: 'February 2024',
     totalExpenses: 2340,
     categoryBreakdown: {
-      'Alimentação': 347.20,
-      'Transporte': 235.00,
-      'Moradia': 1141.10,
-      'Saúde': 350.00,
-      'Educação': 239.90,
-      'Entretenimento': 71.70,
-      'Compras': 720.00,
-      'Investimentos': 1800.00,
-      'Serviços': 155.80,
-      'Impostos': 320.00
+      'Food': 347.20,
+      'Transportation': 235.00,
+      'Housing': 1141.10,
+      'Health': 350.00,
+      'Education': 239.90,
+      'Entertainment': 71.70,
+      'Shopping': 720.00,
+      'Investments': 1800.00,
+      'Services': 155.80,
+      'Taxes': 320.00
     }
   },
   {
-    month: 'Março 2024',
+    month: 'March 2024',
     totalExpenses: 2680,
     categoryBreakdown: {
-      'Alimentação': 420.50,
-      'Transporte': 180.00,
-      'Moradia': 1350.00,
-      'Saúde': 280.00,
-      'Educação': 120.00,
-      'Entretenimento': 95.50,
-      'Compras': 180.00,
-      'Investimentos': 600.00,
-      'Serviços': 125.00,
-      'Impostos': 250.00
+      'Food': 420.50,
+      'Transportation': 180.00,
+      'Housing': 1350.00,
+      'Health': 280.00,
+      'Education': 120.00,
+      'Entertainment': 95.50,
+      'Shopping': 180.00,
+      'Investments': 600.00,
+      'Services': 125.00,
+      'Taxes': 250.00
     }
   }
 ];
 
-// Despesas por categoria para gráfico de pizza
+// Expenses by category for pie chart
 export const categoryExpenses: CategoryExpense[] = [
-  { category: 'Moradia', amount: 3600, percentage: 35, color: '#B8860B' },
-  { category: 'Alimentação', amount: 1960, percentage: 19, color: '#B8860B' },
-  { category: 'Transporte', amount: 1040, percentage: 10, color: '#B8860B' },
-  { category: 'Investimentos', amount: 1000, percentage: 10, color: '#B8860B' },
-  { category: 'Saúde', amount: 565, percentage: 5, color: '#B8860B' },
-  { category: 'Educação', amount: 319, percentage: 3, color: '#B8860B' },
-  { category: 'carta pokemon', amount: 1549.90, percentage: 15, color: '#B8860B' },
-  { category: 'Outros', amount: 290, percentage: 3, color: '#B8860B' },
+  { category: 'Housing', amount: 3600, percentage: 35, color: '#B8860B' },
+  { category: 'Food', amount: 1960, percentage: 19, color: '#B8860B' },
+  { category: 'Transportation', amount: 1040, percentage: 10, color: '#B8860B' },
+  { category: 'Investments', amount: 1000, percentage: 10, color: '#B8860B' },
+  { category: 'Health', amount: 565, percentage: 5, color: '#B8860B' },
+  { category: 'Education', amount: 319, percentage: 3, color: '#B8860B' },
+  { category: 'Pokemon Cards', amount: 1549.90, percentage: 15, color: '#B8860B' },
+  { category: 'Others', amount: 290, percentage: 3, color: '#B8860B' },
 ];
 
 // Estatísticas gerais
@@ -241,7 +241,7 @@ export const getTransactionsByPeriod = (period: 'week' | 'month' | 'year') => {
   return filtered;
 };
 
-// Função para calcular gastos por categoria
+// Function to calculate expenses by category
 export const getExpensesByCategory = (transactions: Transaction[]) => {
   const expenses = transactions.filter(t => t.type === 'expense');
   const categoryTotals: { [key: string]: number } = {};
@@ -261,7 +261,7 @@ export const getExpensesByCategory = (transactions: Transaction[]) => {
   });
 };
 
-// Interfaces para Investimentos
+// Interfaces for Investments
 export interface Stock {
   id: string;
   ticker: string;
@@ -382,7 +382,7 @@ export const monthlyDividends: MonthlyDividend[] = [
   { month: '2024-12', amount: 380, count: 4 }
 ];
 
-// Função para calcular resumo dos investimentos
+// Function to calculate investment summary
 export const getInvestmentSummary = (): InvestmentSummary => {
   const totalInvested = stocks.reduce((sum, stock) => sum + (stock.quantity * stock.purchasePrice), 0);
   const currentValue = stocks.reduce((sum, stock) => sum + (stock.quantity * stock.currentPrice), 0);

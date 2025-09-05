@@ -2,10 +2,8 @@
 
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { monthlyDividends, stocks } from '@/data/mockData';
+import { monthlyDividends } from '@/data/mockData';
 import { TrendingUp, BarChart3, Calendar, DollarSign } from 'lucide-react';
 import { 
   LineChart, 
@@ -19,7 +17,6 @@ import {
   Bar,
   ComposedChart,
   Area,
-  AreaChart
 } from 'recharts';
 
 export default function TimelinePage() {
@@ -27,16 +24,16 @@ export default function TimelinePage() {
   const [selectedYear, setSelectedYear] = useState('all');
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'USD'
     }).format(value);
   };
 
   const formatMonth = (monthStr: string) => {
     const [year, month] = monthStr.split('-');
     const date = new Date(parseInt(year), parseInt(month) - 1);
-    return date.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' });
+    return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
   };
 
   // Filtrar dados por ano se selecionado
@@ -44,17 +41,17 @@ export default function TimelinePage() {
     ? monthlyDividends 
     : monthlyDividends.filter(item => item.month.startsWith(selectedYear));
 
-  // Calcular estatísticas
+  // Calculate statistics
   const totalDividends = filteredData.reduce((sum, item) => sum + item.amount, 0);
   const averageMonthly = filteredData.length > 0 ? totalDividends / filteredData.length : 0;
   const highestMonth = filteredData.reduce((max, item) => item.amount > max.amount ? item : max, filteredData[0] || { amount: 0, month: '' });
   const lowestMonth = filteredData.reduce((min, item) => item.amount < min.amount ? item : min, filteredData[0] || { amount: 0, month: '' });
 
-  // Preparar dados para o gráfico
+  // Prepare chart data
   const chartData = filteredData.map(item => ({
     ...item,
     monthFormatted: formatMonth(item.month),
-    cumulativeAmount: 0 // Será calculado abaixo
+    cumulativeAmount: 0 // Will be calculated below
   }));
 
   // Calcular valores cumulativos
@@ -64,7 +61,7 @@ export default function TimelinePage() {
     item.cumulativeAmount = cumulative;
   });
 
-  // Obter anos únicos para o filtro
+  // Get unique years for filter
   const availableYears = [...new Set(monthlyDividends.map(item => item.month.substring(0, 4)))];
 
   const renderChart = () => {
@@ -88,11 +85,11 @@ export default function TimelinePage() {
               />
               <YAxis 
                 tick={{ fontSize: 12 }}
-                tickFormatter={(value) => `R$ ${value.toFixed(0)}`}
+                tickFormatter={(value) => `US$ ${value.toFixed(0)}`}
               />
               <Tooltip 
                 formatter={(value: number) => [formatCurrency(value), 'Proventos']}
-                labelFormatter={(label) => `Mês: ${label}`}
+                labelFormatter={(label) => `Month: ${label}`}
               />
               <Bar dataKey="amount" fill="#E6D1AD" radius={[4, 4, 0, 0]} />
             </BarChart>
@@ -114,20 +111,20 @@ export default function TimelinePage() {
               <YAxis 
                 yAxisId="left"
                 tick={{ fontSize: 12 }}
-                tickFormatter={(value) => `R$ ${value.toFixed(0)}`}
+                tickFormatter={(value) => `US$ ${value.toFixed(0)}`}
               />
               <YAxis 
                 yAxisId="right"
                 orientation="right"
                 tick={{ fontSize: 12 }}
-                tickFormatter={(value) => `R$ ${value.toFixed(0)}`}
+                tickFormatter={(value) => `US$ ${value.toFixed(0)}`}
               />
               <Tooltip 
                 formatter={(value: number, name: string) => [
                   formatCurrency(value), 
                   name === 'amount' ? 'Proventos Mensais' : 'Acumulado'
                 ]}
-                labelFormatter={(label) => `Mês: ${label}`}
+                labelFormatter={(label) => `Month: ${label}`}
               />
               <Area 
                 yAxisId="left"
@@ -164,11 +161,11 @@ export default function TimelinePage() {
               />
               <YAxis 
                 tick={{ fontSize: 12 }}
-                tickFormatter={(value) => `R$ ${value.toFixed(0)}`}
+                tickFormatter={(value) => `US$ ${value.toFixed(0)}`}
               />
               <Tooltip 
                 formatter={(value: number) => [formatCurrency(value), 'Proventos']}
-                labelFormatter={(label) => `Mês: ${label}`}
+                labelFormatter={(label) => `Month: ${label}`}
               />
               <Line 
                 type="monotone" 
@@ -186,7 +183,7 @@ export default function TimelinePage() {
 
   return (
     <div className="min-h-screen">
-      <Layout>
+      <Layout title="Timeline">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
@@ -194,17 +191,17 @@ export default function TimelinePage() {
               <Calendar className="w-8 h-8 text-brown-burned" />
               Timeline de Proventos
             </h1>
-            <p className="text-gray-600 mt-1">Visualize a evolução dos seus proventos ao longo do tempo</p>
+            <p className="text-gray-600 mt-1">Visualize the evolution of your dividends over time</p>
           </div>
         </div>
 
-        {/* Estatísticas */}
+        {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300">
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 font-semibold">Total do Período</p>
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Period Total</p>
                   <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(totalDividends)}
                   </div>
@@ -220,7 +217,7 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 font-semibold">Média Mensal</p>
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Monthly Average</p>
                   <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(averageMonthly)}
                   </div>
@@ -236,7 +233,7 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600 font-semibold">Maior Mês</p>
+                  <p className="text-sm font-medium text-gray-600 font-semibold">Highest Month</p>
                   <div className="text-2xl font-bold text-brown-burned">
                     {formatCurrency(highestMonth?.amount || 0)}
                   </div>
@@ -255,7 +252,7 @@ export default function TimelinePage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                    <p className="text-sm font-medium text-gray-600 font-semibold">Menor Mês</p>
+                    <p className="text-sm font-medium text-gray-600 font-semibold">Lowest Month</p>
                     <div className="text-2xl font-bold text-orange-600 text-brown-burned">
                       {formatCurrency(lowestMonth?.amount || 0)}
                     </div>
@@ -271,14 +268,14 @@ export default function TimelinePage() {
             </div>
           </div>
 
-        {/* Controles do Gráfico */}
+        {/* Chart Controls */}
         <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 mb-6">
           <div className="p-6">
           <div className="flex flex-wrap gap-4 items-center justify-between">
             <div className="flex gap-4 items-center">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Tipo de Gráfico
+                  Chart Type
                 </label>
                 <div className="flex gap-2">
                   <button 
@@ -309,7 +306,7 @@ export default function TimelinePage() {
                     }`}
                     onClick={() => setChartType('area')}
                   >
-                    Área + Acumulado
+                    Area + Cumulative
                   </button>
                 </div>
               </div>
@@ -340,12 +337,12 @@ export default function TimelinePage() {
           </div>
         </div>
 
-        {/* Gráfico */}
+        {/* Chart */}
         <div className="bg-white rounded-xl shadow-lg border-2 hover:shadow-xl transition-all duration-300 mb-6">
           <div className="p-6 border-bottom-brown-burned mb-4">
             <h3 className="text-lg font-bold bg-brown-burned bg-clip-text text-transparent flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-brown-burned" />
-              Evolução Mensal dos Proventos
+              Monthly Dividend Evolution
             </h3>
           </div>
           <div className="p-6 pt-0">
@@ -353,7 +350,7 @@ export default function TimelinePage() {
               renderChart()
             ) : (
               <div className="text-center py-12 text-gray-500">
-                Nenhum dado encontrado para o período selecionado.
+                No data found for the selected period.
               </div>
             )}
           </div>
@@ -372,10 +369,10 @@ export default function TimelinePage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left text-gray-600 py-3 px-2">Mês</th>
+                  <th className="text-left text-gray-600 py-3 px-2">Month</th>
                   <th className="text-right text-gray-600 py-3 px-2">Proventos</th>
                   <th className="text-right text-gray-600 py-3 px-2">Acumulado</th>
-                  <th className="text-right text-gray-600 py-3 px-2">Variação</th>
+                  <th className="text-right text-gray-600 py-3 px-2">Change</th>
                 </tr>
               </thead>
               <tbody>

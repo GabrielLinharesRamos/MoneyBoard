@@ -9,13 +9,16 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, title }: LayoutProps) {
+  const handleMenuClick = () => {
+    // Menu click handler - can be expanded for sidebar functionality
+  };
 
   return (
     <div className="flex h-screen bg-gray-50">
       
       
       <div className="flex-1 flex flex-col overflow-hidden">
-        <Header />
+        <Header onMenuClick={handleMenuClick} />
         
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-3 sm:p-6">
           <div className="max-w-7xl mx-auto">
